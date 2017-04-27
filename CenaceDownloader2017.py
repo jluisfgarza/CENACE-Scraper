@@ -75,17 +75,19 @@ def getPML_MDA():
     # Save Path for system running the script
     save_path = "C:/Users/e-jlfloresg/Desktop/Python-Requests-CENACE/Cenace_Precios_Energia/Precios Marginales Locales/MDA/"
     #Today as DD-MM-YYYY
-    #d = "" + datetime.datetime.today().strftime("%d/%m/%Y")
-    #d = d.replace("/", "-")        
+    d = "" + datetime.datetime.today().strftime("%d/%m/%Y")
+    d = d.replace("/", "-")        
+    """
+    TESTING uncoment and comment top 2 lines
     d = "26-04-2017"
-    
+    """
     # SIN
     destino_pml_SIN = os.path.join(save_path, "PRUEBA" + "_SIN_PreciosMargLocalesMDA.csv")
     sec = 14
     microsec = 24    
-    for sec in [15]:
-        for microsec in [25]:
-            for tzinfo in [0, 1, 2, 3, 4, 5, 6, 7]:
+    for sec in myrange: #[15]:
+        for microsec in myrange: #[25]:
+            for tzinfo in myrange: #[0, 1, 2, 3, 4, 5, 6, 7]:
                 s = str(sec)
                 m = str(microsec)
                 t = str(tzinfo)
@@ -96,9 +98,9 @@ def getPML_MDA():
                 if tzinfo < 10:
                     t = "0"+t
                 d2 = s + "-" + m + "-" + t
-                print(d2)
+                # TESTING LOG print(d2)
                 url_pml_SIN = "http://www.cenace.gob.mx/DocsMEM/OpeMdo/PreEner/MargLoc/MDA/Dia/5_" + d + "_" + d2 + "_SIN_PreciosMargLocalesMDA.csv"
-                print(url_pml_SIN)
+                # TESTING LOG print(url_pml_SIN)
                 a = requests.get(url_pml_SIN)
                 if a.status_code == 404:
                     print ("ERROR 404")
