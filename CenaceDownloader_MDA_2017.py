@@ -50,12 +50,9 @@ Notes:
 
 # Global Variables
 #Today as DD-MM-YYYY
-"""
 d = "" + datetime.datetime.today().strftime("%d/%m/%Y")
 d = d.replace("/", "-")
-"""
-#TESTING uncoment and comment top 2 lines
-d = "02-05-2017"
+#TESTING uncoment and comment top 2 lines d = "02-05-2017"
 MTR_SIN_d2 = ""
 MTR_BCA_d2 = ""
 MTR_BCS_d2 = ""
@@ -82,7 +79,7 @@ def download_file(url, output_file, compressed=True):
 def getPML_MDA():
     # Save Path for system running the script
     save_path = "C:/Users/e-jlfloresg/Desktop/Python-Requests-CENACE/Cenace_Precios_Energia/Precios Marginales Locales/MDA/"
-    
+
     ########################################## SIN #########################################
     destino_pml_SIN = os.path.join(save_path, "PRUEBA" + "_SIN_PreciosMargLocalesMDA.csv")
     # [15] [09] myrange
@@ -142,7 +139,7 @@ def getPML_MDA():
                     # TESTING LOG print(url_pml_BCA)
                     pml_file = download_file(url_pml_BCA, destino_pml_BCA)
                     return True
-    
+
     ########################################## BCS #########################################
     destino_pml_BCS = os.path.join(save_path, "PRUEBA" + "_BCS_PreciosMargLocalesMDA.csv")
     # [14] [4] myrange
@@ -253,7 +250,7 @@ def getPND_MDA():
         # TESTING LOG print(url_pnd_BCA)
         pnd_file = download_file(url_pnd_BCA, destino_pnd_BCA)
         return True
-    
+
     ########################################## BCS #########################################
     destino_pnd_BCS = os.path.join(save_path, "PRUEBA" + "_BCS_PreciosNodosDistribuidosMDA.csv")
     url_pnd_BCS = "http://www.cenace.gob.mx/DocsMEM/OpeMdo/PreEner/MargReg/MDA/Dia/26_" + d + "_" + MDA_BCS_d2 + "_BCS_PreciosNodosDistribuidosMDA.csv"
@@ -291,7 +288,7 @@ def getPND_MDA():
         # TESTING LOG print(url_pnd_BCS)
         pnd_file = download_file(url_pnd_BCS, destino_pnd_BCS)
         return True
-        
+
     return
 
  #def getPML_MTR():
