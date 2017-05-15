@@ -16,14 +16,14 @@ def checkboxes():
     #PML/MTR/D
     searchcheckbox("3")
     #PND/MDA/D
-    searchcheckbox("5")
+    #searchcheckbox("5")
     #PND/MTR/D
-    searchcheckbox("5")
+    #searchcheckbox("5")
     return
                        
 def checktable():    
     try:
-        browser.find_element_by_xpath("//SPAN[@class='rtMinus rtMinusHover']")         
+        browser.find_element_by_xpath("(//SPAN[@class='rtUnchecked'])[1]")         
         return True              
     except NoSuchElementException:        
         print("Error Tabla")                        
@@ -31,7 +31,7 @@ def checktable():
 
 def searchcheckbox(strindex): 
     try:
-        browser.find_element_by_xpath("(//SPAN[@class='rtUnchecked'])[" + strindex + "]").click()
+        browser.find_element_by_xpath("(//SPAN[@class='rtUnchecked'])[" + strindex + "]").click() 
         return
     except NoSuchElementException as e:
         print("Error finding the element")
@@ -42,10 +42,10 @@ def searchcheckbox(strindex):
 browser.get('http://www.cenace.gob.mx/SIM/VISTA/REPORTES/PreEnergiaSisMEM.aspx')
 time.sleep(3)
 
-for i in range(1, 6):    
-    if (checktable() == False):
-        browser.refresh()
-        checktable()
+for i in range(1,6):
+    if (checktable() == False):        
+        browser.refresh()        
+        time.sleep(10)
     else:
         checkboxes()
 
