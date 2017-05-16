@@ -1,0 +1,33 @@
+                                      Precios Marginales Locales
+MDA
+SISTEMA INTERCONECTADO NACIONAL               (Precios de la energía/Precios Marginales Locales/MDA/Diarios)
+//*[@id="ctl00_ContentPlaceHolder1_ListViewNodos_ctrl0_ListViewArchivosSIN_ctrl0_linkCSV"]
+SISTEMA INTERCONECTADO BAJA CALIFORNIA        (Precios de la energía/Precios Marginales Locales/MDA/Diarios)
+//*[@id="ctl00_ContentPlaceHolder1_ListViewNodos_ctrl0_ListViewArchivosBCN_ctrl0_A1"]
+SISTEMA INTERCONECTADO BAJA CALIFORNIA SUR    (Precios de la energía/Precios Marginales Locales/MDA/Diarios)
+//*[@id="ctl00_ContentPlaceHolder1_ListViewNodos_ctrl0_ListViewArchivosBCS_ctrl0_A4"]
+
+MTR
+SISTEMA INTERCONECTADO NACIONAL               (Precios de la energía/Precios Marginales Locales/MTR/Diarios)
+//*[@id="ctl00_ContentPlaceHolder1_ListViewNodos_ctrl1_ListViewArchivosSIN_ctrl0_linkCSV"]
+SISTEMA INTERCONECTADO BAJA CALIFORNIA        (Precios de la energía/Precios Marginales Locales/MTR/Diarios)
+//*[@id="ctl00_ContentPlaceHolder1_ListViewNodos_ctrl1_ListViewArchivosBCN_ctrl0_A1"]
+SISTEMA INTERCONECTADO BAJA CALIFORNIA SUR    (Precios de la energía/Precios Marginales Locales/MTR/Diarios)
+//*[@id="ctl00_ContentPlaceHolder1_ListViewNodos_ctrl1_ListViewArchivosBCS_ctrl0_A4"]
+
+                                      Precios de Nodos Distribuidos
+MDA
+SISTEMA INTERCONECTADO NACIONAL               (Precios de la energía/Precios de Nodos Distribuidos/MDA/Diarios)
+//*[@id="ctl00_ContentPlaceHolder1_ListViewNodos_ctrl2_ListViewArchivosSIN_ctrl0_linkCSV"]
+SISTEMA INTERCONECTADO BAJA CALIFORNIA        (Precios de la energía/Precios de Nodos Distribuidos/MDA/Diarios)
+//*[@id="ctl00_ContentPlaceHolder1_ListViewNodos_ctrl2_ListViewArchivosBCN_ctrl0_A1"]
+SISTEMA INTERCONECTADO BAJA CALIFORNIA SUR    (Precios de la energía/Precios de Nodos Distribuidos/MDA/Diarios)
+//*[@id="ctl00_ContentPlaceHolder1_ListViewNodos_ctrl2_ListViewArchivosBCS_ctrl0_A4"]
+
+MTR
+SISTEMA INTERCONECTADO NACIONAL               (Precios de la energía/Precios de Nodos Distribuidos/MTR/Diarios)
+//*[@id="ctl00_ContentPlaceHolder1_ListViewNodos_ctrl3_ListViewArchivosSIN_ctrl0_linkCSV"]
+SISTEMA INTERCONECTADO BAJA CALIFORNIA        (Precios de la energía/Precios de Nodos Distribuidos/MTR/Diarios)
+//*[@id="ctl00_ContentPlaceHolder1_ListViewNodos_ctrl3_ListViewArchivosBCN_ctrl0_A1"]
+SISTEMA INTERCONECTADO BAJA CALIFORNIA SUR    (Precios de la energía/Precios de Nodos Distribuidos/MTR/Diarios)
+//*[@id="ctl00_ContentPlaceHolder1_ListViewNodos_ctrl3_ListViewArchivosBCS_ctrl0_A4"]
