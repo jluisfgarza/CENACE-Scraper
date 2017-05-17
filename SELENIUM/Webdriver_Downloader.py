@@ -10,6 +10,9 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 import time
 
+# downloadcount must be 12 at the end of the execution
+downloadcount = 0
+
 # Load site
 def loadsite() :
     # Check if the table is correctly loaded 
@@ -64,7 +67,8 @@ def downloadfiles(Xpath):
     time.sleep(10);
     # Click csv img
     try:
-        browser.find_element_by_xpath(Xpath).click()    
+        browser.find_element_by_xpath(Xpath).click()
+        downloadcount = downloadcount + 1
         return
     # Element not found
     except NoSuchElementException as e:
@@ -86,6 +90,7 @@ delay = 15 #seconds
 loadsite()
 downloadfiles("//*[@id=\"ctl00_ContentPlaceHolder1_ListViewNodos_ctrl0_ListViewArchivosSIN_ctrl0_linkCSV\"]")
 time.sleep(60)
+print("PML MDA SISTEMA INTERCONECTADO NACIONAL DONE")
 browser.quit()
 
 # MDA SISTEMA INTERCONECTADO BAJA CALIFORNIA
@@ -100,6 +105,7 @@ delay = 15 #seconds
 loadsite()
 downloadfiles("//*[@id=\"ctl00_ContentPlaceHolder1_ListViewNodos_ctrl0_ListViewArchivosBCN_ctrl0_A1\"]")
 time.sleep(60)
+print("PML MDA SISTEMA INTERCONECTADO BAJA CALIFORNIA DONE")
 browser.quit()
 
 # MDA SISTEMA INTERCONECTADO BAJA CALIFORNIA SUR
@@ -114,6 +120,7 @@ delay = 15 #seconds
 loadsite()
 downloadfiles("//*[@id=\"ctl00_ContentPlaceHolder1_ListViewNodos_ctrl0_ListViewArchivosBCS_ctrl0_A4\"]")
 time.sleep(60)
+print("PML MDA SISTEMA INTERCONECTADO BAJA CALIFORNIA SUR DONE")
 browser.quit()
 
 # MTR SISTEMA INTERCONECTADO NACIONAL
@@ -128,6 +135,7 @@ delay = 15 #seconds
 loadsite()
 downloadfiles("//*[@id=\"ctl00_ContentPlaceHolder1_ListViewNodos_ctrl1_ListViewArchivosSIN_ctrl0_linkCSV\"]")
 time.sleep(60)
+print("PML MTR SISTEMA INTERCONECTADO NACIONAL DONE")
 browser.quit()
 
 # MTR SISTEMA INTERCONECTADO BAJA CALIFORNIA
@@ -142,6 +150,7 @@ delay = 15 #seconds
 loadsite()
 downloadfiles("//*[@id=\"ctl00_ContentPlaceHolder1_ListViewNodos_ctrl1_ListViewArchivosBCN_ctrl0_A1\"]")
 time.sleep(60)
+print("PML MTR SISTEMA INTERCONECTADO BAJA CALIFORNIA DONE")
 browser.quit()
 
 # MTR SISTEMA INTERCONECTADO BAJA CALIFORNIA SUR
@@ -156,6 +165,7 @@ delay = 15 #seconds
 loadsite()
 downloadfiles("//*[@id=\"ctl00_ContentPlaceHolder1_ListViewNodos_ctrl1_ListViewArchivosBCS_ctrl0_A4\"]")
 time.sleep(60)
+print("PML MTR SISTEMA INTERCONECTADO BAJA CALIFORNIA SUR DONE")
 browser.quit()
 
 ### Precios de Nodos Distribuidos
@@ -171,6 +181,7 @@ delay = 15 #seconds
 loadsite()
 downloadfiles("//*[@id=\"ctl00_ContentPlaceHolder1_ListViewNodos_ctrl2_ListViewArchivosSIN_ctrl0_linkCSV\"]")
 time.sleep(60)
+print("PND MDA SISTEMA INTERCONECTADO NACIONAL DONE")
 browser.quit()
 
 # MDA SISTEMA INTERCONECTADO BAJA CALIFORNIA
@@ -185,6 +196,7 @@ delay = 15 #seconds
 loadsite()
 downloadfiles("//*[@id=\"ctl00_ContentPlaceHolder1_ListViewNodos_ctrl2_ListViewArchivosBCN_ctrl0_A1\"]")
 time.sleep(60)
+print("PND MDA SISTEMA INTERCONECTADO BAJA CALIFORNIA DONE")
 browser.quit()
 
 # MDA SISTEMA INTERCONECTADO BAJA CALIFORNIA SUR
@@ -199,6 +211,7 @@ delay = 15 #seconds
 loadsite()
 downloadfiles("//*[@id=\"ctl00_ContentPlaceHolder1_ListViewNodos_ctrl2_ListViewArchivosBCS_ctrl0_A4\"]")
 time.sleep(60)
+print("PND MDA SISTEMA INTERCONECTADO BAJA CALIFORNIA SUR DONE")
 browser.quit()
 
 # MTR SISTEMA INTERCONECTADO NACIONAL
@@ -213,6 +226,7 @@ delay = 15 #seconds
 loadsite()
 downloadfiles("//*[@id=\"ctl00_ContentPlaceHolder1_ListViewNodos_ctrl3_ListViewArchivosSIN_ctrl0_linkCSV\"]")
 time.sleep(60)
+print("PND MTR SISTEMA INTERCONECTADO NACIONAL DONE")
 browser.quit()
 
 # MTR SISTEMA INTERCONECTADO BAJA CALIFORNIA
@@ -227,6 +241,7 @@ delay = 15 #seconds
 loadsite()
 downloadfiles("//*[@id=\"ctl00_ContentPlaceHolder1_ListViewNodos_ctrl3_ListViewArchivosBCN_ctrl0_A1\"]")
 time.sleep(60)
+print("PND MTR SISTEMA INTERCONECTADO BAJA CALIFORNIA DONE")
 browser.quit()
 
 # MTR SISTEMA INTERCONECTADO BAJA CALIFORNIA SUR
@@ -241,4 +256,7 @@ delay = 15 #seconds
 loadsite()
 downloadfiles("//*[@id=\"ctl00_ContentPlaceHolder1_ListViewNodos_ctrl3_ListViewArchivosBCS_ctrl0_A4\"]")
 time.sleep(60)
+print("PND MTR SISTEMA INTERCONECTADO BAJA CALIFORNIA SUR DONE")
 browser.quit()
+
+print(downloadcount)
