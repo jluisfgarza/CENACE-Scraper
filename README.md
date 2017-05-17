@@ -16,7 +16,6 @@ Para utilizar el script es necesario descargar la versión más reciente de:
 -  [Python  3.6.0+](https://www.python.org/downloads/)
 
 > **Nota:**
-
 > - Para instalar geckodriver en windows fué necesario agregar al path  del .exe a la variable de sistema PATH
 
 ----------
@@ -32,15 +31,15 @@ Funcionalidades Pendientes
 Downloader Tree
 -------------
 
-PML
-:   MDA
-:   MTR
+*PML
+  *MDA
+  *MTR
 
-PND
-:   MDA
-:   MTR
+*PND
+    *MDA
+    *MTR
 
-	> Se debe definir el path de descarga nuevamente para cada ordenador donde se corra el script.
-> ```
+> Se debe definir el path de descarga nuevamente para cada ordenador donde se corra el script.
+``` python
 profile.set_preference("browser.download.dir", "C:\\Users\e-jlfloresg\Desktop\Python-Requests-CENACE\SELENIUM\test downloads\PML\MTR")
 ```
