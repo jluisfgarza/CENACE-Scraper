@@ -1,3 +1,5 @@
+# Author: Juan Luis Flores Garza
+# Date: 5/17/2017
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import TimeoutException
@@ -10,16 +12,20 @@ import time
 
 # Load site
 def loadsite() :
+    # Check if the table is correctly loaded 
     try:
         element_present = EC.presence_of_element_located((By.ID, 'ctl00_ContentPlaceHolder1_treePrincipal'))
         WebDriverWait(browser, delay).until(element_present)
         print ("Page is ready!")
         checkboxes()
         return
+    # Timeout for loading website
     except TimeoutException:
         print ("Error Code 1: Error Cargando página")
+    # Table not loaded 
     except ElementNotVisibleException as nv:
         print("Error Code 2: Error cargado la tabla")
+    # Table partialy loaded
     except ElementNotInteractableException as ni:
         print("Error Code 3: Error cargado la tabla")
     browser.refresh()
@@ -41,21 +47,26 @@ def checkboxes():
 
 # Click on checkboxes
 def searchcheckbox(mychar):
+    # Click checkbox
     try:
-        browser.find_element_by_xpath("(//SPAN[@class='rtUnchecked'])[" + mychar + "]").click()
-        
+        browser.find_element_by_xpath("(//SPAN[@class='rtUnchecked'])[" + mychar + "]").click()        
         return
+    # Element not found
     except NoSuchElementException as e:
         print("Error finding the element")
+        #Reload website and redownload files for better reliability
         browser.refresh()
         loadsite()
         return
 
+#Download files according to Xpath in table
 def downloadfiles(Xpath):
     time.sleep(10);
+    # Click csv img
     try:
         browser.find_element_by_xpath(Xpath).click()    
         return
+    # Element not found
     except NoSuchElementException as e:
         print("Error no encontre csv")
     return
