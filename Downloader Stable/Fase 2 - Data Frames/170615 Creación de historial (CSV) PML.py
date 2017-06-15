@@ -40,6 +40,7 @@ def getData(myPath, ElectricSys):
 ## MDA
 ### SISTEMA INTERCONECTADO NACIONAL
 getData("C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/Downloader Stable/Fase 2 - Data Frames/test csv/PML/MDA", "SIN")
+'''
 ### SISTEMA INTERCONECTADO BAJA CALIFORNIA
 getData("C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/Downloader Stable/Fase 2 - Data Frames/test csv/PML/MDA", "BCA")
 ### SISTEMA INTERCONECTADO BAJA CALIFORNIA SUR
@@ -52,3 +53,4 @@ getData("C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/Downloader Stable
 getData("C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/Downloader Stable/Fase 2 - Data Frames/test csv/PML/MTR", "BCA")
 ### SISTEMA INTERCONECTADO BAJA CALIFORNIA SUR
 getData("C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/Downloader Stable/Fase 2 - Data Frames/test csv/PML/MTR", "BCS")
+'''
