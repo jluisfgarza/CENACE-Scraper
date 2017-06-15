@@ -4,7 +4,6 @@ Python-Requests-CENACE
 Python Downloader: CENACE website for obtaining CSV files
 Site: http://www.cenace.gob.mx/SIM/VISTA/REPORTES/PreEnergiaSisMEM.aspx
 
-Check [Stable Version](https://github.com/jluisfgarza/Python-Downloader-CENACE/blob/master/SELENIUM/Webdriver_Downloader.py)
 ----------
 
 Instalación
@@ -36,10 +35,11 @@ Downloader Tree
   *MDA
   *MTR
 *PND
-    *MDA
-    *MTR
+  *MDA
+  *MTR
 
 > Se debe definir el path de descarga nuevamente para cada ordenador donde se corra el script.
+
 ``` python
 profile.set_preference("browser.download.dir", "C:\\Users\e-jlfloresg\Desktop\Python-Requests-CENACE\SELENIUM\test downloads\PML\MTR")
 ```
