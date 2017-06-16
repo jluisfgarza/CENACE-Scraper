@@ -34,25 +34,25 @@ def getData(myPath, ElectricSys):
         coleccion = coleccion.append(PML, ignore_index=True)
 
     coleccion.reset_index(drop=True)
-    coleccion.to_csv('C:/Users/RALATORRE/Desktop/' + 'hola otra vez.csv', index = False)
+    coleccion.to_csv(mypath + 'test.csv', index = False)
     return # End getData()
 
 ################################# Main Program #################################
 # PML
 ## MDA
 ### SISTEMA INTERCONECTADO NACIONAL
-getData("C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/Downloader Stable/Fase 2 - Data Frames/test csv/PML/MDA", "SIN")
+getData("C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/Downloader Stable/Phase 2 - Data Frames/test csv/PML/MDA", "SIN")
 '''
 ### SISTEMA INTERCONECTADO BAJA CALIFORNIA
-getData("C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/Downloader Stable/Fase 2 - Data Frames/test csv/PML/MDA", "BCA")
+getData("C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/Downloader Stable/Phase 2 - Data Frames/test csv/PML/MDA", "BCA")
 ### SISTEMA INTERCONECTADO BAJA CALIFORNIA SUR
-getData("C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/Downloader Stable/Fase 2 - Data Frames/test csv/PML/MDA", "BCS")
+getData("C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/Downloader Stable/Phase 2 - Data Frames/test csv/PML/MDA", "BCS")
 
 ## MTR
 ### SISTEMA INTERCONECTADO NACIONAL
-getData("C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/Downloader Stable/Fase 2 - Data Frames/test csv/PML/MTR", "SIN")
+getData("C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/Downloader Stable/Phase 2 - Data Frames/test csv/PML/MTR", "SIN")
 ### SISTEMA INTERCONECTADO BAJA CALIFORNIA
-getData("C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/Downloader Stable/Fase 2 - Data Frames/test csv/PML/MTR", "BCA")
+getData("C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/Downloader Stable/Phase 2 - Data Frames/test csv/PML/MTR", "BCA")
 ### SISTEMA INTERCONECTADO BAJA CALIFORNIA SUR
-getData("C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/Downloader Stable/Fase 2 - Data Frames/test csv/PML/MTR", "BCS")
+getData("C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/Downloader Stable/Phase 2 - Data Frames/test csv/PML/MTR", "BCS")
 '''

@@ -3,10 +3,9 @@ Python-Requests-CENACE
 
 Python Downloader: CENACE website downloader for obtaining CSV files (Mexico)
 Site: http://www.cenace.gob.mx/SIM/VISTA/REPORTES/PreEnergiaSisMEM.aspx
+-------------
 
--------------
 ## Installation
--------------
 To use the tool, it is necessary to download and install:
 -  [Geckodriver](https://github.com/mozilla/geckodriver/releases)
 -  [Firefox](https://www.mozilla.org/en-US/firefox/new/)
@@ -16,10 +15,12 @@ To use the tool, it is necessary to download and install:
 > - To install Geckodriver in windows it is necessary to add geckodriver.exe to the systems path  
 
 -------------
+
 ## Pending
 - [ ] Validate 12 downloads
 - [ ] Run every 24 hrs.
 -------------
+
 ## Downloader Tree
 ```
 PML
