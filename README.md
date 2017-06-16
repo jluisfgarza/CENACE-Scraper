@@ -1,44 +1,37 @@
 Python-Requests-CENACE
 ===================
 
-Python Downloader: CENACE website for obtaining CSV files
+Python Downloader: CENACE website downloader for obtaining CSV files (Mexico)
 Site: http://www.cenace.gob.mx/SIM/VISTA/REPORTES/PreEnergiaSisMEM.aspx
 
-----------
-
-Instalación
 -------------
-
-Para utilizar el script es necesario descargar la versión más reciente de:
-
+Installation
+-------------
+To use the tool, it is necessary to download and install:
 -  [Geckodriver](https://github.com/mozilla/geckodriver/releases)
--  [Firefox](https://www.mozilla.org/es-MX/firefox/new/)
+-  [Firefox](https://www.mozilla.org/en-US/firefox/new/)
 -  [Python  3.6.0+](https://www.python.org/downloads/)
 
-> **Nota:**
-> - Para instalar geckodriver en windows fué necesario agregar al path  del .exe a la variable de sistema PATH
+> **Note:**
+> - To install Geckodriver in windows it is necessary to add geckodriver.exe to the systems path  
 
-----------
-
-
-Funcionalidades Pendientes
 -------------
-
-- Revisar 12 descargas correctas
-- Ejecutción automática cada 24 hrs
-
-----------
+Pending
+- [] Validate 12 downloads
+- [] Run every 24 hrs.
+-------------
 Downloader Tree
+```
+PML
+  MDA
+  MTR
+PND
+  MDA
+  MTR
+```
 -------------
 
-*PML
-  *MDA
-  *MTR
-*PND
-  *MDA
-  *MTR
-
-> Se debe definir el path de descarga nuevamente para cada ordenador donde se corra el script.
+> Don't forget to change the download path!!
 
 ``` python
 profile.set_preference("browser.download.dir", "C:\\Users\e-jlfloresg\Desktop\Python-Requests-CENACE\SELENIUM\test downloads\PML\MTR")

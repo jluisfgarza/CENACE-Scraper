@@ -1,3 +1,3 @@
 # Download files
 
-Files are downloaded to the "test downloades" dir. 
+Files are downloaded to the "test downloads" dir.
