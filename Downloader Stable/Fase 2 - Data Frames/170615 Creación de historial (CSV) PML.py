@@ -1,8 +1,10 @@
-# -*- coding: utf-8 -*-
-"""
-Precios Marginales Locales
-
-"""
+# Authors:
+#    Fransisco Con Garza
+#    Ricardo
+#    Juan Luis Flores Garza
+# Date: 5/17/2017
+#
+# Downloader for PML - (Precios Marginales Locales)
 
 import pandas as pd
 import os

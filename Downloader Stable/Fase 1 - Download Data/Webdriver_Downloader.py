@@ -86,7 +86,7 @@ def start():
     profile = webdriver.FirefoxProfile()
     profile.set_preference("browser.download.folderList", 2)
     profile.set_preference("browser.download.manager.showWhenStarting", False)
-    profile.set_preference("browser.download.dir", "C:\\Users\e-jlfloresg\Desktop\Python-Downloader-CENACEDownloader Stabletest downloads\PML\MDA")
+    profile.set_preference("browser.download.dir", "C:\\Users\e-jlfloresg\Desktop\Python-Downloader-CENACE\Downloader Stable\Fase 1 - Download Data\test downloads\PML\MDA")
     profile.set_preference('browser.helperApps.neverAsk.saveToDisk', ('application/octet-stream, text/plain, text/x-csv, text/plain, application/vnd.ms-excel, text/x-csv, application/csv, application/x-csv, text/csv, text/comma-separated-values, text/x-comma-separated-values, text/tab-separated-values'))
     browser = webdriver.Firefox(firefox_profile=profile)
     browser.get('http://www.cenace.gob.mx/SIM/VISTA/REPORTES/PreEnergiaSisMEM.aspx')
