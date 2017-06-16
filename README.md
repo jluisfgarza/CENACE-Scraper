@@ -17,8 +17,8 @@ To use the tool, it is necessary to download and install:
 
 -------------
 Pending
-- [] Validate 12 downloads
-- [] Run every 24 hrs.
+- [ ] Validate 12 downloads
+- [ ] Run every 24 hrs.
 -------------
 Downloader Tree
 ```
