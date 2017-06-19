@@ -9,7 +9,6 @@
 import pandas as pd
 import os
 import datetime
-import time
 import locale
 import pyodbc
 
@@ -29,28 +28,31 @@ import pyodbc
 
 # Check bulk insert to DB
 
-def getDataPML(myPath, ElectricSys):
-    coleccion = pd.DataFrame()
+
+def getDataPML(myPath):
+    coleccion = pd.DataFrame()    
     pathlist_POST = []
-    
-    print("entra")
-    for subdir, dirs, files in os.walk(myPath):
+        
+    for subdir, dirs, files in os.walk('C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/Downloader Stable/Phase 2 - Data Frames/test csv/PML/MDA/'):
         for file in files:
             filepath = subdir + os.sep + file
 
             if filepath.endswith(".csv"):
                 path = filepath
                 pathlist_POST.append(path)
-
-    for element in pathlist_POST:
+    
+    print("antes skip")
+    element = ''
+    for element in pathlist_POST:        
         path = element
+        print(path + "hola")
         PML = pd.read_csv(path, skiprows=[0,1,2,3,4,5,6])
         # Init Columns
         PML.columns = ["Hora","Nodo","Precio","Energía","Pérdidas","Congestión"]
         # Get the date from CSV header
         fecha = pd.read_csv(path, nrows=1, skiprows=[0,1,2])
         print(fecha)
-        locale.setlocale(locale.LC_TIME, 'es_MX')
+        locale.setlocale(locale.LC_TIME, 'es')
         alfa = fecha["Reporte diario"].to_string(index=False)
         # Get substr with the date and format it
         PML["timestamp"] = PML["Hora"].apply(lambda x: datetime.datetime.strptime(alfa[-len(alfa)+alfa.index(" ")+1:], "%d/%B/%Y").strptime("%B/%d/%Y") + datetime.timedelta(hours=int(x)))
@@ -59,13 +61,13 @@ def getDataPML(myPath, ElectricSys):
     coleccion.reset_index(drop=True)
 
     # Export CSV
-    coleccion.to_csv('C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/Downloader Stable/Phase 2 - Data Frames/test csv/PML/MDA/testPML.csv', index = False)
     return # End getDataPML()
 
 ################################# Main Program #################################
 ## MDA
 ### SISTEMA INTERCONECTADO NACIONAL
-getDataPML("C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/Downloader Stable/Phase 2 - Data Frames/test csv/PML/MDA/5_18-06-2017_18-05-09_SIN_PreciosMargLocalesMDA.csv", "SIN")
+getDataPML('C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/Downloader Stable/Phase 2 - Data Frames/test csv/PML/MDA/PreciosMargLocalesMDA.csv')
+
 '''
 ### SISTEMA INTERCONECTADO BAJA CALIFORNIA
 getDataPML("C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/Downloader Stable/Phase 2 - Data Frames/test csv/PML/MDA", "BCA")
