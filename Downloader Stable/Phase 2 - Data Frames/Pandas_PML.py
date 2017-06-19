@@ -11,10 +11,24 @@ import os
 import datetime
 import time
 import locale
+import pyodbc
 
-def getData(myPath, ElectricSys):
+# SQL Server connection
+server = 'your_server.database.windows.net'
+database = 'your_database'
+username = 'your_username'
+password = 'your_password'
+driver= '{ODBC Driver 13 for SQL Server}'
+cnxn = pyodbc.connect('DRIVER='+driver+';PORT=1433;SERVER='+server+';PORT=1443;DATABASE='+database+';UID='+username+';PWD='+ password)
+
+# INSERT query example
+
+
+
+def getDataPML(myPath, ElectricSys):
     coleccion = pd.DataFrame()
     pathlist_POST = []
+
     for subdir, dirs, files in os.walk(myPath):
         for file in files:
             filepath = subdir + os.sep + file
@@ -25,7 +39,7 @@ def getData(myPath, ElectricSys):
 
     for element in pathlist_POST:
         path = element
-        #PML = pd.read_csv(path, skiprows=[0,1,2,3,4,5,6])
+        # PML = pd.read_csv(path, skiprows=[0,1,2,3,4,5,6])
         PML.columns = ["Hora","Nodo","Precio","Energía","Pérdidas","Congestión"]
         fecha = pd.read_csv(path, nrows=1, skiprows=[0,1,2])
         locale.setlocale(locale.LC_TIME, 'es')
@@ -35,24 +49,21 @@ def getData(myPath, ElectricSys):
 
     coleccion.reset_index(drop=True)
     coleccion.to_csv(mypath + 'test.csv', index = False)
-    return # End getData()
+    return # End getDataPML()
 
 ################################# Main Program #################################
-# PML
 ## MDA
 ### SISTEMA INTERCONECTADO NACIONAL
-getData("C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/Downloader Stable/Phase 2 - Data Frames/test csv/PML/MDA", "SIN")
-'''
+getDataPML("C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/Downloader Stable/Phase 2 - Data Frames/test csv/PML/MDA", "SIN")
 ### SISTEMA INTERCONECTADO BAJA CALIFORNIA
-getData("C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/Downloader Stable/Phase 2 - Data Frames/test csv/PML/MDA", "BCA")
+getDataPML("C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/Downloader Stable/Phase 2 - Data Frames/test csv/PML/MDA", "BCA")
 ### SISTEMA INTERCONECTADO BAJA CALIFORNIA SUR
-getData("C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/Downloader Stable/Phase 2 - Data Frames/test csv/PML/MDA", "BCS")
+getDataPML("C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/Downloader Stable/Phase 2 - Data Frames/test csv/PML/MDA", "BCS")
 
 ## MTR
 ### SISTEMA INTERCONECTADO NACIONAL
-getData("C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/Downloader Stable/Phase 2 - Data Frames/test csv/PML/MTR", "SIN")
+getDataPML("C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/Downloader Stable/Phase 2 - Data Frames/test csv/PML/MTR", "SIN")
 ### SISTEMA INTERCONECTADO BAJA CALIFORNIA
-getData("C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/Downloader Stable/Phase 2 - Data Frames/test csv/PML/MTR", "BCA")
+getDataPML("C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/Downloader Stable/Phase 2 - Data Frames/test csv/PML/MTR", "BCA")
 ### SISTEMA INTERCONECTADO BAJA CALIFORNIA SUR
-getData("C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/Downloader Stable/Phase 2 - Data Frames/test csv/PML/MTR", "BCS")
-'''
+getDataPML("C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/Downloader Stable/Phase 2 - Data Frames/test csv/PML/MTR", "BCS")
