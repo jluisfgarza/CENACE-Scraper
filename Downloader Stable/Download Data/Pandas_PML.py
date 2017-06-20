@@ -11,6 +11,7 @@ import os
 import datetime
 import locale
 import pyodbc
+import time
 
 # SQL Server connection
 #server = 'your_server.database.windows.net'
@@ -28,57 +29,104 @@ import pyodbc
 
 # Check bulk insert to DB
 
-coleccion = pd.DataFrame()    
+# Global Variables
 pathlist_MDA = []
 pathlist_MTR = []
-    
-for subdir, dirs, files in os.walk('C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/Downloader Stable/Download Data/CSVdir/PML'):
-    for file in files:
-        filepath = subdir + os.sep + file
+MDA_path = "C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/Downloader Stable/Download Data/CSVdir/PML/MDA/"
+MTR_path = "C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/Downloader Stable/Download Data/CSVdir/PML/MTR/"
+coleccionPML = pd.DataFrame()
 
-        if filepath.endswith("PreciosMargLocalesMDA.csv"):
-            path = filepath
-            pathlist_MDA.append(path)
-        else if filepath.endswith(".csv") && filepath.startswith("PreciosMargLocales"):
-            path = filepath
-            pathlist_MTR.append(path)
+def getPMLpaths(dir1, dir2):
+    global pathlist_MDA
 
-for element in pathlist_POST:        
-    path = element
-    PML = pd.read_csv(path, skiprows=[0,1,2,3,4,5,6])
-    # Init Columns
-    PML.columns = ["Hora","Nodo","Precio","Energía","Pérdidas","Congestión"]
-    # Get the date from CSV header
-    fecha = pd.read_csv(path, nrows=1, skiprows=[0,1,2])
-    locale.setlocale(locale.LC_TIME, 'es')
-    alfa = fecha["Reporte diario"].to_string(index=False)
-    # Get substr with the date and format it
-        #print(fecha)
-    mydate = datetime.datetime.strptime(alfa[-len(alfa)+alfa.index(" ")+1:], '%d/%B/%Y').strftime('%B/%d/%Y')
-        #print (mydate)
-    mydate = datetime.datetime.strptime(mydate, '%B/%d/%Y')
-    PML["timestamp"] = PML["Hora"].apply(lambda x: mydate + datetime.timedelta(hours=int(x)))
-    coleccion = coleccion.append(PML, ignore_index=True)
+    #MDA
+    for subdir, dirs, files in os.walk(dir1):
+        for file in files:
+            filepath = subdir + os.sep + file
+            if filepath.endswith(".csv"):
+                path = filepath
+                pathlist_MDA.append(path)
 
-coleccion.reset_index(drop=True)
+    #MTR
+    for subdir, dirs, files in os.walk(dir2):
+        for file in files:
+            filepath = subdir + os.sep + file
+            if filepath.endswith(".csv"):
+                path = filepath
+                pathlist_MTR.append(path)
 
-# Export CSV
-coleccion.to_csv('C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/Downloader Stable/Download Data/CSVdir/PML'+ tipo + esystem + '.csv', index = False)
+    print (pathlist_MDA)
+    print('\n')
+    print (pathlist_MTR)
+    print('\n')
+    return
+
+def uploadtoDB(pathlist1, pathlist2):
+
+    global coleccionPML
+
+    #MDA
+    for element in pathlist1:
+        path = element
+        print(path + '\n')
+        if path.find("_SIN_PreciosMargLocalesMDA"):
+            sistema = "SIN"
+        if path.find("_BCA_PreciosMargLocalesMDA"):
+            sistema = "BCA"
+        if path.find("_BCS_PreciosMargLocalesMDA"):
+            sistema = "BCS"
+        PML = pd.read_csv(path, skiprows=[0,1,2,3,4,5,6])
+        # Init Columns
+        PML.columns = ["Hora","Nodo","Precio","Energía","Pérdidas","Congestión"]
+        # Get the date from CSV header
+        fecha = pd.read_csv(path, nrows=1, skiprows=[0,1,2])
+        locale.setlocale(locale.LC_TIME, 'es')
+        alfa = fecha["Reporte diario"].to_string(index=False)
+        # Get substr with the date and format it
+            #print(fecha)
+        mydate = datetime.datetime.strptime(alfa[-len(alfa)+alfa.index(" ")+1:], '%d/%B/%Y').strftime('%B/%d/%Y')
+            #print (mydate)
+        mydate = datetime.datetime.strptime(mydate, '%B/%d/%Y')
+        PML["timestamp"] = PML["Hora"].apply(lambda x: mydate + datetime.timedelta(hours=int(x)))
+        PML["tipo"] = "MDA"
+        PML["sistema"] = sistema
+        coleccionPML = coleccionPML.append(PML, ignore_index=True)
+
+    #MTR
+    for element in pathlist2:
+        path = element
+        print(path + '\n')
+        if path.find("PreciosMargLocales SIN MTR"):
+            sistema = "SIN"
+        if path.find("PreciosMargLocales BCA MTR"):
+            sistema = "BCA"
+        if path.find("PreciosMargLocales BCS MTR"):
+            sistema = "BCS"
+        PML = pd.read_csv(path, skiprows=[0,1,2,3,4,5,6])
+        # Init Columns
+        PML.columns = ["Hora","Nodo","Precio","Energía","Pérdidas","Congestión"]
+        # Get the date from CSV header
+        fecha = pd.read_csv(path, nrows=1, skiprows=[0,1,2])
+        locale.setlocale(locale.LC_TIME, 'es')
+        alfa = fecha["Reporte diario"].to_string(index=False)
+        # Get substr with the date and format it
+            #print(fecha)
+        mydate = datetime.datetime.strptime(alfa[-len(alfa)+alfa.index(" ")+1:], '%d/%B/%Y').strftime('%B/%d/%Y')
+            #print (mydate)
+        mydate = datetime.datetime.strptime(mydate, '%B/%d/%Y')
+        PML["timestamp"] = PML["Hora"].apply(lambda x: mydate + datetime.timedelta(hours=int(x)))
+        PML["tipo"] = "MTR"
+        PML["sistema"] = sistema
+        coleccionPML = coleccionPML.append(PML, ignore_index=True)
+
+    coleccionPML.reset_index(drop=True)
+    # Export CSV or database
+    ## dd/mm/yyyy format
+    mydate = time.strftime("%d-%m-%Y")    
+    coleccionPML.to_csv('C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/Downloader Stable/Download Data/CSVdir/PML/' + mydate + '.csv', index = False)
+
+    return
 
 ################################# Main Program #################################
-## MDA
-### SISTEMA INTERCONECTADO NACIONAL
-getDataPML('C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/Downloader Stable/Download Data/CSVdir/PML/MDA/PreciosMargLocalesMDA.csv', 'MDA', 'SIN')
-### SISTEMA INTERCONECTADO BAJA CALIFORNIA
-getDataPML('C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/Downloader Stable/Download Data/CSVdir/PML/MDA/PreciosMargLocalesMDA.csv', 'MDA', "BCA")
-### SISTEMA INTERCONECTADO BAJA CALIFORNIA SUR
-getDataPML('C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/Downloader Stable/Download Data/CSVdir/PML/MDA/PreciosMargLocalesMDA.csv', 'MDA', "BCS")
-
-## MTR
-### SISTEMA INTERCONECTADO NACIONAL
-getDataPML("C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/Downloader Stable/Phase 2 - Data Frames/test csv/PML/MTR", "SIN")
-### SISTEMA INTERCONECTADO BAJA CALIFORNIA
-getDataPML("C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/Downloader Stable/Phase 2 - Data Frames/test csv/PML/MTR", "BCA")
-### SISTEMA INTERCONECTADO BAJA CALIFORNIA SUR
-getDataPML("C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/Downloader Stable/Phase 2 - Data Frames/test csv/PML/MTR", "BCS")
-'''
+getPMLpaths(MDA_path, MTR_path)
+uploadtoDB(pathlist_MDA, pathlist_MTR)
