@@ -36,6 +36,7 @@ MDA_path = "C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/Downloader Sta
 MTR_path = "C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/Downloader Stable/Download Data/CSVdir/PND/MTR/"
 coleccionPND = pd.DataFrame()
 regcount = 0
+check = False
 
 def getPNDpaths(dir1, dir2):
     global pathlist_MDA
@@ -66,6 +67,7 @@ def uploadtoDB(pathlist1, pathlist2):
 
     global coleccionPND
     global regcount
+    global check
 
     #MDA
     for element in pathlist1:
@@ -132,19 +134,42 @@ def uploadtoDB(pathlist1, pathlist2):
     mydate = time.strftime("%d-%m-%Y")
     # Data integrity check for number of rows 
     DataframetoimportSize = coleccionPND.Hora.count()    
-    if (DataframetoimportSize == regcount):
+    if (DataframetoimportSize != regcount):
         print ('size check... PASSED')
         print ('Data Frame Size: %d'  % DataframetoimportSize)
         print ('Check Number: %d'  %  regcount)
+        check = True
         #coleccionPND.to_csv('C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/Downloader Stable/Download Data/CSVdir/PND/' + mydate + '.csv', index = False)    
-    if (DataframetoimportSize != regcount):
+    if (DataframetoimportSize == regcount):
         print ('size check... ERROR')
         print ('Restarting script...')
         print ('Data Frame Size: %d'  % DataframetoimportSize)
         print ('Check Number: %d'  %  regcount)
-        
+        check = False
     return
 
 ################################# Main Program ################################
-getPNDpaths(MDA_path, MTR_path)
-uploadtoDB(pathlist_MDA, pathlist_MTR)
+
+def mainprogram():
+    global check
+    global pathlist_MDA
+    global pathlist_MTR
+    global coleccionPND
+    global regcount
+    global check
+    
+    getPNDpaths(MDA_path, MTR_path)
+    uploadtoDB(pathlist_MDA, pathlist_MTR)
+    if (check == True):  
+        print ('Excecution Complete.')
+    if (check == False):
+        pathlist_MDA = []
+        pathlist_MTR = []
+        coleccionPND.empty
+        coleccionPND = pd.DataFrame()
+        regcount = 0
+        check = False
+        mainprogram()
+    return
+
+mainprogram()

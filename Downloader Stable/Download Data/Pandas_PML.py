@@ -155,7 +155,6 @@ def mainprogram():
     global coleccionPML
     global regcount
     global check
-    global coleccionPML
     
     getPMLpaths(MDA_path, MTR_path)
     uploadtoDB(pathlist_MDA, pathlist_MTR)
