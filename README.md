@@ -1,8 +1,8 @@
-Python-Requests-CENACE
-===================
+# Python-Requests-CENACE
 
 Python Downloader: CENACE website downloader for obtaining CSV files (Mexico)
-Site: http://www.cenace.gob.mx/SIM/VISTA/REPORTES/PreEnergiaSisMEM.aspx
+Site: [CENACE](http://www.cenace.gob.mx/SIM/VISTA/REPORTES/PreEnergiaSisMEM.aspx)
+
 -------------
 
 ## Installation
@@ -15,13 +15,20 @@ To use the tool, it is necessary to download and install:
 > - To install Geckodriver in windows it is necessary to add geckodriver.exe to the systems path  
 
 -------------
+## Current Working Functions
+- [x] Enter [CENACE](http://www.cenace.gob.mx/SIM/VISTA/REPORTES/PreEnergiaSisMEM.aspx) and download files to the specified directory
+- [x] Validate downloads
+- [x] Use Pandas lib to parse CSV files on specified directory
+- [x] Create a daily condensed CSV files for PML and PND
+- [x] Validate data integrity as dataframe
 
 ## Pending
-- [ ] Validate 12 downloads
-- [ ] Run every 24 hrs.
+- [ ] Azure DB connection
+- [ ] Azure data upload
+- [ ] Run every 24 hrs
 -------------
 
-## Downloader Tree
+## Download Dir (CSVdir)
 ```
 PML
   MDA
@@ -32,8 +39,9 @@ PND
 ```
 -------------
 
-> Don't forget to change the download path!!
+> Don't forget to change the download paths!!
 
+> Example on file Webdriver_Downloader:
 ``` python
 profile.set_preference("browser.download.dir", "C:\\Users\e-jlfloresg\Desktop\Python-Requests-CENACE\SELENIUM\test downloads\PML\MTR")
 ```

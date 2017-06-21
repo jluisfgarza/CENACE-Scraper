@@ -1,9 +1,21 @@
 # Download files
 
-Files are downloaded to the "test downloads" dir.
+Files are downloaded and read on the `CSVdir` directory.
 
-# Pandas dataframe parser
+### Download Dir (CSVdir)
+```
+PML
+  MDA
+  MTR
+PND
+  MDA
+  MTR
+```
+-------------
 
-Files are read on the "test csv" directory.
+> Don't forget to change the download paths!!
 
-Files are uploaded to the SQL database.  
+> Example on file Webdriver_Downloader:
+``` python
+profile.set_preference("browser.download.dir", "C:\\Users\e-jlfloresg\Desktop\Python-Requests-CENACE\SELENIUM\test downloads\PML\MTR")
+```
