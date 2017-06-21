@@ -35,6 +35,8 @@ pathlist_MTR = []
 MDA_path = "C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/Downloader Stable/Download Data/CSVdir/PML/MDA/"
 MTR_path = "C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/Downloader Stable/Download Data/CSVdir/PML/MTR/"
 coleccionPML = pd.DataFrame()
+regcount = 0
+check = False
 
 def getPMLpaths(dir1, dir2):
     global pathlist_MDA
@@ -64,6 +66,8 @@ def getPMLpaths(dir1, dir2):
 def uploadtoDB(pathlist1, pathlist2):
 
     global coleccionPML
+    global regcount
+    global check
 
     #MDA
     for element in pathlist1:
@@ -91,6 +95,8 @@ def uploadtoDB(pathlist1, pathlist2):
         PML["tipo"] = "MDA"
         PML["sistema"] = sistema
         coleccionPML = coleccionPML.append(PML, ignore_index=True)
+        PMLcount = PML.Hora.count()
+        regcount = regcount + PMLcount
 
     #MTR
     for element in pathlist2:
@@ -118,15 +124,51 @@ def uploadtoDB(pathlist1, pathlist2):
         PML["tipo"] = "MTR"
         PML["sistema"] = sistema
         coleccionPML = coleccionPML.append(PML, ignore_index=True)
+        PMLcount = PML.Hora.count()
+        regcount = regcount + PMLcount
 
     coleccionPML.reset_index(drop=True)
     # Export CSV or database
     ## dd/mm/yyyy format
     mydate = time.strftime("%d-%m-%Y")
-    coleccionPML.to_csv('C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/Downloader Stable/Download Data/CSVdir/PML/' + mydate + '.csv', index = False)
+        # Data integrity check for number of rows 
+    DataframetoimportSize = coleccionPML.Hora.count()    
+    if (DataframetoimportSize == regcount):
+        print ('Size Check... PASSED')
+        print ('Data Frame Size: %d'  % DataframetoimportSize)
+        print ('Check Number: %d'  %  regcount)
+        check = True
+        coleccionPML.to_csv('C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/Downloader Stable/Download Data/CSVdir/PML/' + mydate + '.csv', index = False)
+    if (DataframetoimportSize != regcount):
+        print ('Size Check... ERROR')
+        print ('Restarting script...')
+        print ('Data Frame Size: %d'  % DataframetoimportSize)
+        print ('Check Number: %d'  %  regcount)
+        check = False
+    return
+################################# Main Program ################################
 
+def mainprogram():
+    global check
+    global pathlist_MDA
+    global pathlist_MTR
+    global coleccionPML
+    global regcount
+    global check
+    global coleccionPML
+    
+    getPMLpaths(MDA_path, MTR_path)
+    uploadtoDB(pathlist_MDA, pathlist_MTR)
+    if (check == True):  
+        print ('Excecution Complete.')
+    if (check == False):
+        pathlist_MDA = []
+        pathlist_MTR = []
+        coleccionPML.empty
+        coleccionPML = pd.DataFrame()
+        regcount = 0
+        check = False
+        mainprogram()
     return
 
-################################# Main Program ################################
-getPMLpaths(MDA_path, MTR_path)
-uploadtoDB(pathlist_MDA, pathlist_MTR)
+mainprogram()
