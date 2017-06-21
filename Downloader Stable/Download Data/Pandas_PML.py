@@ -69,12 +69,12 @@ def uploadtoDB(pathlist1, pathlist2):
     for element in pathlist1:
         path = element
         print(path + '\n')
-        if path.find("_SIN_PreciosMargLocalesMDA"):
-            sistema = "SIN"
-        if path.find("_BCA_PreciosMargLocalesMDA"):
-            sistema = "BCA"
-        if path.find("_BCS_PreciosMargLocalesMDA"):
-            sistema = "BCS"
+        if path.find('_SIN_PreciosMargLocalesMDA') >= 0:
+            sistema = 'SIN'
+        if path.find('_BCA_PreciosMargLocalesMDA') >= 0:
+            sistema = 'BCA'
+        if path.find('_BCS_PreciosMargLocalesMDA') >= 0:
+            sistema = 'BCS'
         PML = pd.read_csv(path, skiprows=[0,1,2,3,4,5,6])
         # Init Columns
         PML.columns = ["Hora","Nodo","Precio","Energía","Pérdidas","Congestión"]
@@ -96,12 +96,12 @@ def uploadtoDB(pathlist1, pathlist2):
     for element in pathlist2:
         path = element
         print(path + '\n')
-        if path.find("PreciosMargLocales SIN MTR"):
-            sistema = "SIN"
-        if path.find("PreciosMargLocales BCA MTR"):
-            sistema = "BCA"
-        if path.find("PreciosMargLocales BCS MTR"):
-            sistema = "BCS"
+        if path.find('PreciosMargLocales SIN MTR_') >= 0:
+            sistema = 'SIN'
+        if path.find('PreciosMargLocales BCA MTR_') >= 0:
+            sistema = 'BCA'
+        if path.find('PreciosMargLocales BCS MTR_') >= 0:
+            sistema = 'BCS'
         PML = pd.read_csv(path, skiprows=[0,1,2,3,4,5,6])
         # Init Columns
         PML.columns = ["Hora","Nodo","Precio","Energía","Pérdidas","Congestión"]
@@ -122,11 +122,11 @@ def uploadtoDB(pathlist1, pathlist2):
     coleccionPML.reset_index(drop=True)
     # Export CSV or database
     ## dd/mm/yyyy format
-    mydate = time.strftime("%d-%m-%Y")    
+    mydate = time.strftime("%d-%m-%Y")
     coleccionPML.to_csv('C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/Downloader Stable/Download Data/CSVdir/PML/' + mydate + '.csv', index = False)
 
     return
 
-################################# Main Program #################################
+################################# Main Program ################################
 getPMLpaths(MDA_path, MTR_path)
 uploadtoDB(pathlist_MDA, pathlist_MTR)
