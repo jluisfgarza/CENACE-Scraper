@@ -40,6 +40,7 @@ check = False
 
 def getPMLpaths(dir1, dir2):
     global pathlist_MDA
+    global pathlist_MTR
 
     #MDA
     for subdir, dirs, files in os.walk(dir1):
@@ -131,8 +132,8 @@ def uploadtoDB(pathlist1, pathlist2):
     # Export CSV or database
     ## dd/mm/yyyy format
     mydate = time.strftime("%d-%m-%Y")
-        # Data integrity check for number of rows 
-    DataframetoimportSize = coleccionPML.Hora.count()    
+        # Data integrity check for number of rows
+    DataframetoimportSize = coleccionPML.Hora.count()
     if (DataframetoimportSize == regcount):
         print ('Size Check... PASSED')
         print ('Data Frame Size: %d'  % DataframetoimportSize)
@@ -155,10 +156,10 @@ def mainprogram():
     global coleccionPML
     global regcount
     global check
-    
+
     getPMLpaths(MDA_path, MTR_path)
     uploadtoDB(pathlist_MDA, pathlist_MTR)
-    if (check == True):  
+    if (check == True):
         print ('Excecution Complete.')
     if (check == False):
         pathlist_MDA = []

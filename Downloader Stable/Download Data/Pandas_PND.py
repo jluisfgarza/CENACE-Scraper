@@ -40,6 +40,7 @@ check = False
 
 def getPNDpaths(dir1, dir2):
     global pathlist_MDA
+    global pathlist_MTR
 
     #MDA
     for subdir, dirs, files in os.walk(dir1):
@@ -94,7 +95,7 @@ def uploadtoDB(pathlist1, pathlist2):
         PND["timestamp"] = PND["Hora"].apply(lambda x: mydate + datetime.timedelta(hours=int(x)))
         PND["tipo"] = "MDA"
         PND["sistema"] = sistema
-        coleccionPND = coleccionPND.append(PND, ignore_index=True) 
+        coleccionPND = coleccionPND.append(PND, ignore_index=True)
         PNDcount = PND.Hora.count()
         regcount = regcount + PNDcount
 
@@ -132,14 +133,14 @@ def uploadtoDB(pathlist1, pathlist2):
     # Export CSV or database
     ## dd/mm/yyyy format
     mydate = time.strftime("%d-%m-%Y")
-    # Data integrity check for number of rows 
-    DataframetoimportSize = coleccionPND.Hora.count()    
+    # Data integrity check for number of rows
+    DataframetoimportSize = coleccionPND.Hora.count()
     if (DataframetoimportSize != regcount):
         print ('size check... PASSED')
         print ('Data Frame Size: %d'  % DataframetoimportSize)
         print ('Check Number: %d'  %  regcount)
         check = True
-        #coleccionPND.to_csv('C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/Downloader Stable/Download Data/CSVdir/PND/' + mydate + '.csv', index = False)    
+        #coleccionPND.to_csv('C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/Downloader Stable/Download Data/CSVdir/PND/' + mydate + '.csv', index = False)
     if (DataframetoimportSize == regcount):
         print ('size check... ERROR')
         print ('Restarting script...')
@@ -157,10 +158,10 @@ def mainprogram():
     global coleccionPND
     global regcount
     global check
-    
+
     getPNDpaths(MDA_path, MTR_path)
     uploadtoDB(pathlist_MDA, pathlist_MTR)
-    if (check == True):  
+    if (check == True):
         print ('Excecution Complete.')
     if (check == False):
         pathlist_MDA = []
