@@ -23,6 +23,7 @@ To use the tool, it is necessary to download and install:
 - [x] Validate data integrity as dataframe
 
 ## Pending
+- [ ] Check header format change on csv files
 - [ ] Azure DB connection
 - [ ] Azure data upload
 - [ ] Run every 24 hrs
