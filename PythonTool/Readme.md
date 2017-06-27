@@ -1,6 +1,8 @@
 # Download files
 
-Files are downloaded and read on the `CSVdir` directory.
+Files are downloaded by the webdriver script and read on the `CSVdir` directory by the daily scripts.
+
+Daily Scripts connect to the azure server and upload information for data analysis.
 
 ### Download Dir (CSVdir)
 ```
