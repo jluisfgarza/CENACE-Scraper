@@ -32,8 +32,8 @@ import time
 # Global Variables
 pathlist_MDA = []
 pathlist_MTR = []
-MDA_path = "C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/Downloader Stable/Download Data/CSVdir/PML/MDA/"
-MTR_path = "C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/Downloader Stable/Download Data/CSVdir/PML/MTR/"
+MDA_path = "C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/PythonTool/CSVdir/PML/MDA/"
+MTR_path = "C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/PythonTool/CSVdir/PML/MTR/ Data/CSVdir/PML/MTR/"
 coleccionPML = pd.DataFrame()
 regcount = 0
 check = False
@@ -139,7 +139,7 @@ def uploadtoDB(pathlist1, pathlist2):
         print ('Data Frame Size: %d'  % DataframetoimportSize)
         print ('Check Number: %d'  %  regcount)
         check = True
-        coleccionPML.to_csv('C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/Downloader Stable/Download Data/CSVdir/PML/' + mydate + '.csv', index = False)
+        coleccionPML.to_csv('C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/PythonTool/CSVdir/PML/' + mydate + '.csv', index = False)
     if (DataframetoimportSize != regcount):
         print ('Size Check... ERROR')
         print ('Restarting script...')

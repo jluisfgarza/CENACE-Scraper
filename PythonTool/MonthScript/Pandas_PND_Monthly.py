@@ -4,7 +4,7 @@
 #    Juan Luis Flores Garza
 # Date: 6/21/2017
 #
-# Downloader for PML - (Precios Nodos Distribuidos)
+# Downloader for PND - (Precios Nodos Distribuidos)
 
 import pandas as pd
 import os
@@ -16,13 +16,13 @@ import csv
 # Global Variables
 pathlist_MDA = []
 pathlist_MTR = []
-MDA_path = "C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/Downloader Stable/Download Data/CSVdir/PML/MDA/"
-MTR_path = "C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/Downloader Stable/Download Data/CSVdir/PML/MTR/"
-coleccionPML = pd.DataFrame()
+MDA_path = "C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/PythonTool/PastCSVBackup/PND/MDA/"
+MTR_path = "C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/PythonTool/PastCSVBackup/PND/MTR/"
+coleccionPND = pd.DataFrame()
 regcount = 0
 check = False
 
-def getPMLpaths(dir1, dir2):
+def getPNDpaths(dir1, dir2):
     global pathlist_MDA
     global pathlist_MTR
 
@@ -51,7 +51,7 @@ def getPMLpaths(dir1, dir2):
 
 def uploadtoDB(pathlist1, pathlist2):
 
-    global coleccionPML
+    global coleccionPND
     global regcount
     global check
 
@@ -71,21 +71,21 @@ def uploadtoDB(pathlist1, pathlist2):
           reader = csv.reader(f)
           row1 = str(next(reader))
           #print (row1)
-        PML = pd.read_csv(path, nrows=1)
+        PND = pd.read_csv(path, nrows=1)
         # Init Columns
-        PML.columns = ["Fecha","Hora","Zona de Carga","Precio Zonal","Energía","Pérdidas","Congestión"]
+        PND.columns = ["Fecha","Hora","Zona de Carga","Precio Zonal","Energía","Pérdidas","Congestión"]
 
         if row1.find('Centro Nacional de Control de Energia') >= 0:
-            PML = pd.read_csv(path, skiprows=[0,1,2,3,4,5,6])
+            PND = pd.read_csv(path, skiprows=[0,1,2,3,4,5,6])
 
         if row1.find('Precios de energia en nodos distribuidos del MDA') >= 0:
-            PML = pd.read_csv(path, skiprows=[0,1,2,3,4,5])
+            PND = pd.read_csv(path, skiprows=[0,1,2,3,4,5])
 
-        PML["tipo"] = "MDA"
-        PML["sistema"] = sistema
-        coleccionPML = coleccionPML.append(PML, ignore_index=True)
-        PMLcount = PML.Fecha.count()
-        regcount = regcount + PMLcount
+        PND["tipo"] = "MDA"
+        PND["sistema"] = sistema
+        coleccionPND = coleccionPND.append(PND, ignore_index=True)
+        PNDcount = PND.Fecha.count()
+        regcount = regcount + PNDcount
 
     #MTR
     for element in pathlist2:
@@ -103,34 +103,34 @@ def uploadtoDB(pathlist1, pathlist2):
             reader = csv.reader(f)
             row1 = str(next(reader))
             #print (row1)
-        PML = pd.read_csv(path, nrows=1)
+        PND = pd.read_csv(path, nrows=1)
         # Init Columns
-        PML.columns = ["Fecha","Hora","Zona de Carga","Precio Zonal","Energía","Pérdidas","Congestión"]
+        PND.columns = ["Fecha","Hora","Zona de Carga","Precio Zonal","Energía","Pérdidas","Congestión"]
 
         if row1.find('Centro Nacional de Control de Energia') >= 0:
-            PML = pd.read_csv(path, skiprows=[0,1,2,3,4,5,6])
+            PND = pd.read_csv(path, skiprows=[0,1,2,3,4,5,6])
 
         if row1.find('Precios de energia en nodos distribuidos del MDA') >= 0:
-            PML = pd.read_csv(path, skiprows=[0,1,2,3,4,5])
+            PND = pd.read_csv(path, skiprows=[0,1,2,3,4,5])
 
-        PML["tipo"] = "MTR"
-        PML["sistema"] = sistema
-        coleccionPML = coleccionPML.append(PML, ignore_index=True)
-        PMLcount = PML.Fecha.count()
-        regcount = regcount + PMLcount
+        PND["tipo"] = "MTR"
+        PND["sistema"] = sistema
+        coleccionPND = coleccionPND.append(PND, ignore_index=True)
+        PNDcount = PND.Fecha.count()
+        regcount = regcount + PNDcount
 
-    coleccionPML.reset_index(drop=True)
+    coleccionPND.reset_index(drop=True)
     # Export CSV or database
     ## dd/mm/yyyy format
     mydate = time.strftime("%d-%m-%Y")
     # Data integrity check for number of rows
-    DataframetoimportSize = coleccionPML.Hora.count()
+    DataframetoimportSize = coleccionPND.Hora.count()
     if (DataframetoimportSize == regcount):
         print ('size check... PASSED')
         print ('Data Frame Size: %d'  % DataframetoimportSize)
         print ('Check Number: %d'  %  regcount)
         check = True
-        coleccionPML.to_csv('C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/Downloader Stable/Download Data/CSVdir/PML/' + mydate + '.csv', index = False)
+        coleccionPND.to_csv('C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/PythonTool/PastCSVBackup/PND/' + mydate + '.csv', index = False)
     if (DataframetoimportSize != regcount):
         print ('size check... ERROR')
         print ('Restarting script...')
@@ -146,10 +146,10 @@ def mainprogram():
     global check
     global pathlist_MDA
     global pathlist_MTR
-    global coleccionPML
+    global coleccionPND
     global regcount
 
-    getPMLpaths(MDA_path, MTR_path)
+    getPNDpaths(MDA_path, MTR_path)
     uploadtoDB(pathlist_MDA, pathlist_MTR)
 
     if (check == True):
@@ -157,8 +157,8 @@ def mainprogram():
     if (check == False):
         pathlist_MDA = []
         pathlist_MTR = []
-        coleccionPML.empty
-        coleccionPML = pd.DataFrame()
+        coleccionPND.empty
+        coleccionPND = pd.DataFrame()
         regcount = 0
         check = False
         mainprogram()

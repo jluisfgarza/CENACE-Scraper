@@ -32,8 +32,8 @@ import time
 # Global Variables
 pathlist_MDA = []
 pathlist_MTR = []
-MDA_path = "C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/Downloader Stable/Download Data/CSVdir/PND/MDA/"
-MTR_path = "C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/Downloader Stable/Download Data/CSVdir/PND/MTR/"
+MDA_path = "C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/PythonTool/CSVdir/PND/MDA/"
+MTR_path = "C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/PythonTool/CSVdir/PND/MTR/"
 coleccionPND = pd.DataFrame()
 regcount = 0
 check = False
@@ -135,13 +135,13 @@ def uploadtoDB(pathlist1, pathlist2):
     mydate = time.strftime("%d-%m-%Y")
     # Data integrity check for number of rows
     DataframetoimportSize = coleccionPND.Hora.count()
-    if (DataframetoimportSize != regcount):
+    if (DataframetoimportSize == regcount):
         print ('size check... PASSED')
         print ('Data Frame Size: %d'  % DataframetoimportSize)
         print ('Check Number: %d'  %  regcount)
         check = True
-        #coleccionPND.to_csv('C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/Downloader Stable/Download Data/CSVdir/PND/' + mydate + '.csv', index = False)
-    if (DataframetoimportSize == regcount):
+        coleccionPND.to_csv('C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/PythonTool/CSVdir/PND/' + mydate + '.csv', index = False)
+    if (DataframetoimportSize != regcount):
         print ('size check... ERROR')
         print ('Restarting script...')
         print ('Data Frame Size: %d'  % DataframetoimportSize)
