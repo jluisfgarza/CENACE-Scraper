@@ -1,14 +1,11 @@
-# Authors:
-#    Fransisco Con Garza
-#    Ricardo Alatorre Cantú
+# Author:
 #    Juan Luis Flores Garza
-# Date: 6/21/2017
+# Date: 6/28/2017
 #
 # Downloader for PML - (Precios Nodos Distribuidos)
 
 import pandas as pd
 import os
-import datetime
 import time
 import csv
 
@@ -17,7 +14,7 @@ import csv
 pathlist_MDA = []
 pathlist_MTR = []
 MDA_path = "C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/PythonTool/PastCSVBackup/PML/MDA/"
-MTR_path = "C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/PythonTool/PastCSVBackup/PML/MTR"
+MTR_path = "C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/PythonTool/PastCSVBackup/PML/MTR/"
 coleccionPML = pd.DataFrame()
 regcount = 0
 check = False
@@ -122,7 +119,7 @@ def uploadtoDB(pathlist1, pathlist2):
     coleccionPML.reset_index(drop=True)
     # Export CSV or database
     ## dd/mm/yyyy format
-    mydate = time.strftime("%d-%m-%Y")
+    mydate = time.strftime("%B-%Y")
     # Data integrity check for number of rows
     DataframetoimportSize = coleccionPML.Hora.count()
     if (DataframetoimportSize == regcount):
@@ -130,7 +127,7 @@ def uploadtoDB(pathlist1, pathlist2):
         print ('Data Frame Size: %d'  % DataframetoimportSize)
         print ('Check Number: %d'  %  regcount)
         check = True
-        coleccionPML.to_csv('C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/PythonTool/PastCSVBackup/PML/' + mydate + '.csv', index = False)
+        coleccionPML.to_csv('C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/PythonTool/PastCSVBackup/PML/PML-' + mydate + '.csv', index = False)
     if (DataframetoimportSize != regcount):
         print ('size check... ERROR')
         print ('Restarting script...')
