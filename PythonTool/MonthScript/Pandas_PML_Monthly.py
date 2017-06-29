@@ -37,8 +37,8 @@ def getPMLpaths(dir1, dir2):
             filepath = subdir + os.sep + file
             if filepath.endswith(".csv"):
                 path = filepath
-
                 pathlist_MTR.append(path)
+                
     print (pathlist_MDA)
     print('\n')
     print (pathlist_MTR)
@@ -146,7 +146,7 @@ def mainprogram():
     global coleccionPML
     global regcount
 
-    getPMLpaths(MDA_path, MTR_path)
+    getPMLpaths(MDA_path, MTR_path)    
     uploadtoDB(pathlist_MDA, pathlist_MTR)
 
     if (check == True):

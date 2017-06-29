@@ -13,8 +13,8 @@ import csv
 # Global Variables
 pathlist_MDA = []
 pathlist_MTR = []
-MDA_path = "C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/PythonTool/PastCSVBackup/PND/MDA/"
-MTR_path = "C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/PythonTool/PastCSVBackup/PND/MTR/"
+MDA_path = "C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/PythonTool/CSVdir/PND/MDA/"
+MTR_path = "C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/PythonTool/CSVdir/PND/MTR/"
 coleccionPND = pd.DataFrame()
 regcount = 0
 check = False
@@ -37,8 +37,8 @@ def getPNDpaths(dir1, dir2):
             filepath = subdir + os.sep + file
             if filepath.endswith(".csv"):
                 path = filepath
-
                 pathlist_MTR.append(path)
+                
     print (pathlist_MDA)
     print('\n')
     print (pathlist_MTR)
