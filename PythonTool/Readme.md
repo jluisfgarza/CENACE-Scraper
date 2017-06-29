@@ -1,5 +1,4 @@
-
-### Download Dir (CSVdir)
+## Download (CSVdir) and Backup Directories tree view (PartCSVBackup)
 ```
 PML
   MDA
@@ -8,10 +7,4 @@ PND
   MDA
   MTR
 ```
-
-> Don't forget to change the download paths!!
-
-> Example on file Webdriver_Downloader:
-``` python
-profile.set_preference("browser.download.dir", "C:\\Users\..\Desktop\Python-Requests-CENACE\..\PML\MTR")
-```
+-------------

@@ -15,7 +15,7 @@ Site: [CENACE](http://www.cenace.gob.mx/SIM/VISTA/REPORTES/PreEnergiaSisMEM.aspx
 ### Scripts
 `Pandas_PML_Daily.py` and `Pandas_PND_Daily.py` : Parse information downloaded from CENACE to the SQL Database every day.
 
-`Pandas_PML_Monthly.py` and `Pandas_PND_Monthly.py` : Initialize the sql database with past information from CENACE. These scripts are prepared to fix possible header differences among files and process the CSV files that contain information of 1/2 a month at a time.
+`Pandas_PML_Monthly.py` and `Pandas_PND_Monthly.py` : Initialize the sql database with past information from CENACE.
 
 -------------
 
@@ -35,16 +35,16 @@ To use the tool, it is necessary to download and install:
 - [x] Use Pandas lib to parse CSV files on specified directory
 - [x] Create a daily condensed CSV files for PML and PND
 - [x] Validate data integrity as dataframe
-- [x] Check header format change on csv files for monthly scripts
 
 ## Pending
+- [ ] Finish monthly scripts
 - [ ] Azure DB connection
 - [ ] Azure data upload
 - [ ] Initialize DB with past information using monthly scripts
 - [ ] Run every 24 hrs
 -------------
 
-## Download Dir (CSVdir)
+## Download (CSVdir) and Backup Directories tree view (PartCSVBackup)
 ```
 PML
   MDA
