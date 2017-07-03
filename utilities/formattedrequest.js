@@ -1,5 +1,4 @@
 var cargaDatos = function () {
-  console.log("hola");
   $.ajax({
       type: "post",
       url: "http://www.cenace.gob.mx/ajax.aspx",
@@ -9,13 +8,14 @@ var cargaDatos = function () {
       },
       success: function (response) {
        ajaxSuccess(response);
+       console.log(response);
        console.log (this.url);
       }
   });
 }
-// if (!datosHistoricoIncluidos) {
-//     cargaDatos();
-// }
+ if (!datosHistoricoIncluidos) {
+     cargaDatos();
+  }
 setInterval(function () {
     cargaDatos();
 }, 3000);

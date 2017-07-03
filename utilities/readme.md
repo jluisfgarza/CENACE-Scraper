@@ -1,5 +1,8 @@
 # Cenace Gráfica de Demanda
 
+### Update
+Server side app blocks requests, requests must be done on the browser console while in being on `http://www.cenace.gob.mx/`
+
 [Grafica Demanda sitio](http://www.cenace.gob.mx/GraficaDemanda.aspx)
  - request url http://www.cenace.gob.mx/ajax.aspx
  - realtime every 5min
