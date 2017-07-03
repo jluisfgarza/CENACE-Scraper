@@ -1,3 +1,4 @@
+var data = [];
 d3.queue()
     .defer(d3.csv, "test1.csv")
     .defer(d3.csv, "test2.csv")
@@ -8,7 +9,7 @@ function analyze(error, test1, test2) {
         console.log(error);
     }
     console.log(d3.merge([test1, test2]));
-    var data = d3.merge([test1, test2]);
+    data = d3.merge([test1, test2]);
     //readfile(test1);
     //readfile(test2);
     //console.log(test1);
@@ -27,12 +28,13 @@ function readfile(filename) {
         });
         console.log(data);
     });
-}
+};
 
-var width = 420,
-    barHeight = 20;
+// https://bl.ocks.org/mbostock/4062085
+var width = 500,
+    barHeight = 500;
 
-var x = d3.scale.linear()
+var x = d3.scaleLinear()
     .domain([0, d3.max(data)])
     .range([0, width]);
 
