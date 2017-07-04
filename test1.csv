@@ -1,4 +1,4 @@
-Hora,Clave del nodo,Precio marginal local ($/MWh),Componente de energia ($/MWh),Componente de perdidas ($/MWh),Componente de congestion ($/MWh)
-1,07ACU-115,500.7,498.11,2.59,0
-2,07ACU-115,501.08,498.65,2.43,0
-3,07ACU-115,489.08,486.58,2.5,0
+Fecha,Hora,Clave del nodo,Precio marginal local ($/MWh),Componente de energia ($/MWh),Componente de perdidas ($/MWh),Componente de congestion ($/MWh)
+16/04/2016,1,07APD-230,315.89,322.1,-6.21,0
+16/04/2016,2,07APD-230,327.06,335.49,-8.43,0
+16/04/2016,3,07APD-230,326.75,335.63,-8.88,0
