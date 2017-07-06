@@ -8,6 +8,16 @@ import pandas as pd
 import os
 import time
 import csv
+import pymssql
+
+# SQL Connection
+conn = pymssql.connect(server="E-JLFLORESG", user="NOAM\e-jlfloresg",password="admin", port=1434)
+## Hey Look, college data
+stmt = "SELECT TOP (10) [Nodo] FROM [PreciosEnergía].[dbo].[PML]"
+# Excute Query here
+df = pd.read_sql(stmt,conn)
+
+df.head(5)
 
 
 # Global Variables

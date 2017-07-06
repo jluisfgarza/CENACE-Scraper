@@ -10,7 +10,7 @@ var data = [];
 var jasondata = [{}];
 
 d3.queue()
-    .defer(d3.csv, "PythonTool/PastCSVBackup/PML/MDA/2016/PreciosMargLocales BCA MDA Mes Abr01 v2016 09 01_08 54 06.csv")
+    .defer(d3.csv, "test1.csv")
     .defer(d3.csv, "test2.csv")
     .await(analyze);
 
@@ -21,7 +21,7 @@ function analyze(error, test1, test2) {
 
     data = readfile(d3.merge([test1, test2]));
     jsondata = (JSON.stringify(data, null, "\t"));
-    //console.log(jsondata);
+    console.log(jsondata);
     //console.log(data);  
 
 }
@@ -29,6 +29,7 @@ function analyze(error, test1, test2) {
 function readfile(data) {
     data.forEach(function (d) {
         temp = d["Fecha"];
+        temp = temp + d["Hora"];
         temp = parseDate(temp);
         //console.log(Date.parse(temp));
         d["Fecha"] = temp,
