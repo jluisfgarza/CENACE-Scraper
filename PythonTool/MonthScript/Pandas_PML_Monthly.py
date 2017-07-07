@@ -1,24 +1,15 @@
 # Author:
 #    Juan Luis Flores Garza
-# Date: 6/28/2017
+# Date: 7/7/2017
 #
 # Downloader for PML - (Precios Nodos Distribuidos)
 
 import pandas as pd
 import os
+import datetime
 import time
 import csv
-import pymssql
-
-# SQL Connection
-conn = pymssql.connect(server="E-JLFLORESG", user="NOAM\e-jlfloresg",password="admin", port=1434)
-## Hey Look, college data
-stmt = "SELECT TOP (10) [Nodo] FROM [PreciosEnergía].[dbo].[PML]"
-# Excute Query here
-df = pd.read_sql(stmt,conn)
-
-df.head(5)
-
+from dateutil import parser
 
 # Global Variables
 pathlist_MDA = []
@@ -48,7 +39,7 @@ def getPMLpaths(dir1, dir2):
             if filepath.endswith(".csv"):
                 path = filepath
                 pathlist_MTR.append(path)
-                
+
     print (pathlist_MDA)
     print('\n')
     print (pathlist_MTR)
@@ -117,9 +108,6 @@ def uploadtoDB(pathlist1, pathlist2):
         if row1.find('Centro Nacional de Control de Energia') >= 0:
             PML = pd.read_csv(path, skiprows=[0,1,2,3,4,5,6])
 
-        if row1.find('Precios de energia en nodos distribuidos del MDA') >= 0:
-            PML = pd.read_csv(path, skiprows=[0,1,2,3,4,5])
-
         PML["tipo"] = "MTR"
         PML["sistema"] = sistema
         coleccionPML = coleccionPML.append(PML, ignore_index=True)
@@ -156,7 +144,7 @@ def mainprogram():
     global coleccionPML
     global regcount
 
-    getPMLpaths(MDA_path, MTR_path)    
+    getPMLpaths(MDA_path, MTR_path)
     uploadtoDB(pathlist_MDA, pathlist_MTR)
 
     if (check == True):

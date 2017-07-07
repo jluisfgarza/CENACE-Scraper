@@ -1,14 +1,15 @@
 # Author:
 #    Juan Luis Flores Garza
-# Date: 6/28/2017
+# Date: 7/7/2017
 #
 # Downloader for PND - (Precios Nodos Distribuidos)
 
 import pandas as pd
 import os
+import datetime
 import time
 import csv
-
+from dateutil import parser
 
 # Global Variables
 pathlist_MDA = []
@@ -38,12 +39,12 @@ def getPNDpaths(dir1, dir2):
             if filepath.endswith(".csv"):
                 path = filepath
                 pathlist_MTR.append(path)
-                
+    """
     print (pathlist_MDA)
     print('\n')
     print (pathlist_MTR)
     print('\n')
-
+    """
     return
 
 def uploadtoDB(pathlist1, pathlist2):
@@ -55,7 +56,7 @@ def uploadtoDB(pathlist1, pathlist2):
     #MDA
     for element in pathlist1:
         path = element
-        #print(path + '\n')
+        print(path + '\n')
 
         if path.find('SIN') >= 0:
             sistema = 'SIN'
@@ -68,9 +69,10 @@ def uploadtoDB(pathlist1, pathlist2):
           reader = csv.reader(f)
           row1 = str(next(reader))
           #print (row1)
-        PND = pd.read_csv(path, nrows=1)
+        PND = pd.read_csv(path)
+
         # Init Columns
-        PND.columns = ["Fecha","Hora","Zona de Carga","Precio Zonal","Energía","Pérdidas","Congestión"]
+        PND.columns = ["Fecha","Hora","Zona de Carga","Precio Zonal","Energia","Perdidas","Congestion"]
 
         if row1.find('Centro Nacional de Control de Energia') >= 0:
             PND = pd.read_csv(path, skiprows=[0,1,2,3,4,5,6])
@@ -87,7 +89,7 @@ def uploadtoDB(pathlist1, pathlist2):
     #MTR
     for element in pathlist2:
         path = element
-        #print(path + '\n')
+        print(path + '\n')
 
         if path.find('SIN') >= 0:
             sistema = 'SIN'
@@ -100,15 +102,13 @@ def uploadtoDB(pathlist1, pathlist2):
             reader = csv.reader(f)
             row1 = str(next(reader))
             #print (row1)
-        PND = pd.read_csv(path, nrows=1)
+        PND = pd.read_csv(path)
+
         # Init Columns
-        PND.columns = ["Fecha","Hora","Zona de Carga","Precio Zonal","Energía","Pérdidas","Congestión"]
+        PND.columns = ["Fecha","Hora","Zona de Carga","Precio Zonal","Energia","Perdidas","Congestion"]
 
         if row1.find('Centro Nacional de Control de Energia') >= 0:
             PND = pd.read_csv(path, skiprows=[0,1,2,3,4,5,6])
-
-        if row1.find('Precios de energia en nodos distribuidos del MDA') >= 0:
-            PND = pd.read_csv(path, skiprows=[0,1,2,3,4,5])
 
         PND["tipo"] = "MTR"
         PND["sistema"] = sistema
@@ -127,7 +127,8 @@ def uploadtoDB(pathlist1, pathlist2):
         print ('Data Frame Size: %d'  % DataframetoimportSize)
         print ('Check Number: %d'  %  regcount)
         check = True
-        coleccionPND.to_csv('C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/PythonTool/PastCSVBackup/PND/PND-' + mydate + '.csv', index = False)
+        print (coleccionPND)
+        #coleccionPND.to_csv('C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/PythonTool/PastCSVBackup/PND/PND-' + mydate + '.csv', index = False)
     if (DataframetoimportSize != regcount):
         print ('size check... ERROR')
         print ('Restarting script...')

@@ -9,25 +9,9 @@
 import pandas as pd
 import os
 import datetime
-import locale
-import pyodbc
 import time
-
-# SQL Server connection
-#server = 'your_server.database.windows.net'
-#database = 'your_database'
-#username = 'your_username'
-#password = 'your_password'
-#driver= '{ODBC Driver 13 for SQL Server}'
-#cnxn = pyodbc.connect('DRIVER='+driver+';PORT=1433;SERVER='+server+';PORT=1443;DATABASE='+database+';UID='+username+';PWD='+ password)
-
-# INSERT query example
-#cursor = cnxn.cursor()
-#with cursor.execute("INSERT INTO SalesLT.Product (Name, ProductNumber, Color, StandardCost, ListPrice, SellStartDate) OUTPUT INSERTED.ProductID VALUES ('BrandNewProduct', '200989', 'Blue', 75, 80, '7/1/2016')"):
-#    print ('Successfuly Inserted!')
-#cnxn.commit()
-
-# Check bulk insert to DB
+import csv
+import locale
 
 # Global Variables
 pathlist_MDA = []
@@ -80,9 +64,11 @@ def uploadtoDB(pathlist1, pathlist2):
             sistema = 'BCA'
         if path.find('_BCS_PreciosNodosDistribuidosMDA') >= 0:
             sistema = 'BCS'
+            
         PND = pd.read_csv(path, skiprows=[0,1,2,3,4,5,6])
         # Init Columns
         PND.columns = ["Hora","Zona de Carga","Precio Zonal","Energía","Pérdidas","Congestión", "Derp"]
+        
         # Get the date from CSV header
         fecha = pd.read_csv(path, nrows=1, skiprows=[0,1,2])
         locale.setlocale(locale.LC_TIME, 'es')
@@ -109,9 +95,23 @@ def uploadtoDB(pathlist1, pathlist2):
             sistema = 'BCA'
         if path.find('PreciosNodosDistrib BCS MTR_') >= 0:
             sistema = 'BCS'
-        PND = pd.read_csv(path, skiprows=[0,1,2,3,4,5,6])
+
+        with open(path, newline='') as f:
+          reader = csv.reader(f)
+          row1 = str(next(reader))
+          #print (row1)
+        PND = pd.read_csv(path)
+
         # Init Columns
         PND.columns = ["Hora","Zona de Carga","Precio Zonal","Energía","Pérdidas","Congestión", "Derp"]
+        
+        if row1.find('Centro Nacional de Control de Energia') >= 0:
+            PND = pd.read_csv(path, skiprows=[0,1,2,3,4,5,6])
+
+        if row1.find('Precios de energia en nodos distribuidos del MDA') >= 0:
+            PND = pd.read_csv(path, skiprows=[0,1,2,3,4,5])
+
+
         # Get the date from CSV header
         fecha = pd.read_csv(path, nrows=1, skiprows=[0,1,2])
         locale.setlocale(locale.LC_TIME, 'es')
@@ -140,7 +140,8 @@ def uploadtoDB(pathlist1, pathlist2):
         print ('Data Frame Size: %d'  % DataframetoimportSize)
         print ('Check Number: %d'  %  regcount)
         check = True
-        coleccionPND.to_csv('C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/PythonTool/CSVdir/PND/' + mydate + '.csv', index = False)
+        print (coleccionPND)
+        #coleccionPND.to_csv('C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/PythonTool/CSVdir/PND/' + mydate + '.csv', index = False)
     if (DataframetoimportSize != regcount):
         print ('size check... ERROR')
         print ('Restarting script...')
