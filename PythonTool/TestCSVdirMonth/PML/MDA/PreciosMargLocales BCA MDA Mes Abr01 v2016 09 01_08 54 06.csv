@@ -1,0 +1,4 @@
+Fecha,Hora,Clave del nodo,Precio marginal local ($/MWh),Componente de energia ($/MWh),Componente de perdidas ($/MWh),Componente de congestion ($/MWh)
+01/04/2016,1,07APD-230,308.7,321.45,-12.75,0
+01/04/2016,2,07APD-230,308.34,321.83,-13.49,0
+01/04/2016,3,07APD-230,308.22,321.07,-12.84,0

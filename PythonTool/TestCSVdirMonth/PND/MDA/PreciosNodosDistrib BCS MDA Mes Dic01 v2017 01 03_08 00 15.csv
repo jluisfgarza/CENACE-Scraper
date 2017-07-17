@@ -1,0 +1,4 @@
+Fecha,Hora,Zona de Carga,Precio Zonal  ($/MWh),Componente energia  ($/MWh),Componente perdidas  ($/MWh),Componente Congestion  ($/MWh)
+2016-12-01,1,CONSTITUCION,1187.34,1178.31,9.03,0
+2016-12-01,2,CONSTITUCION,1132.77,1124.57,8.2,0
+2016-12-01,3,CONSTITUCION,1130.29,1121.56,8.72,0

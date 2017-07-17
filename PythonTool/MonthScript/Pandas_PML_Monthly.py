@@ -1,21 +1,18 @@
 # Author:
 #    Juan Luis Flores Garza
-# Date: 7/7/2017
+# Date: 7/17/2017
 #
 # Downloader for PML - (Precios Nodos Distribuidos)
 
 import pandas as pd
 import os
-import datetime
 import time
-import csv
-from dateutil import parser
 
 # Global Variables
 pathlist_MDA = []
 pathlist_MTR = []
-MDA_path = "C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/PythonTool/PastCSVBackup/PML/MDA/"
-MTR_path = "C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/PythonTool/PastCSVBackup/PML/MTR/"
+MTR_path = "C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/PythonTool/TestCSVdirMonth/PML/MTR/"
+MDA_path = "C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/PythonTool/TestCSVdirMonth/PML/MDA/"
 coleccionPML = pd.DataFrame()
 regcount = 0
 check = False
@@ -40,11 +37,12 @@ def getPMLpaths(dir1, dir2):
                 path = filepath
                 pathlist_MTR.append(path)
 
+    """
     print (pathlist_MDA)
     print('\n')
     print (pathlist_MTR)
     print('\n')
-
+    """
     return
 
 def uploadtoDB(pathlist1, pathlist2):
@@ -65,20 +63,9 @@ def uploadtoDB(pathlist1, pathlist2):
         if path.find('BCS') >= 0:
             sistema = 'BCS'
 
-        with open(path, newline='') as f:
-          reader = csv.reader(f)
-          row1 = str(next(reader))
-          #print (row1)
-        PML = pd.read_csv(path, nrows=1)
+        PML = pd.read_csv(path)
         # Init Columns
-        PML.columns = ["Fecha","Hora","Zona de Carga","Precio Zonal","Energía","Pérdidas","Congestión"]
-
-        if row1.find('Centro Nacional de Control de Energia') >= 0:
-            PML = pd.read_csv(path, skiprows=[0,1,2,3,4,5,6])
-
-        if row1.find('Precios de energia en nodos distribuidos del MDA') >= 0:
-            PML = pd.read_csv(path, skiprows=[0,1,2,3,4,5])
-
+        PML.columns = ["Fecha","Hora","Zona de Carga","Precio Zonal","Energia","Perdidas","Congestion"]
         PML["tipo"] = "MDA"
         PML["sistema"] = sistema
         coleccionPML = coleccionPML.append(PML, ignore_index=True)
@@ -97,17 +84,9 @@ def uploadtoDB(pathlist1, pathlist2):
         if path.find('BCS') >= 0:
             sistema = 'BCS'
 
-        with open(path, newline='') as f:
-            reader = csv.reader(f)
-            row1 = str(next(reader))
-            #print (row1)
-        PML = pd.read_csv(path, nrows=1)
+        PML = pd.read_csv(path)
         # Init Columns
-        PML.columns = ["Fecha","Hora","Zona de Carga","Precio Zonal","Energía","Pérdidas","Congestión"]
-
-        if row1.find('Centro Nacional de Control de Energia') >= 0:
-            PML = pd.read_csv(path, skiprows=[0,1,2,3,4,5,6])
-
+        PML.columns = ["Fecha","Hora","Zona de Carga","Precio Zonal","Energia","Perdidas","Congestion"]
         PML["tipo"] = "MTR"
         PML["sistema"] = sistema
         coleccionPML = coleccionPML.append(PML, ignore_index=True)
@@ -115,8 +94,8 @@ def uploadtoDB(pathlist1, pathlist2):
         regcount = regcount + PMLcount
 
     coleccionPML.reset_index(drop=True)
+
     # Export CSV or database
-    ## dd/mm/yyyy format
     mydate = time.strftime("%B-%Y")
     # Data integrity check for number of rows
     DataframetoimportSize = coleccionPML.Hora.count()
@@ -125,7 +104,8 @@ def uploadtoDB(pathlist1, pathlist2):
         print ('Data Frame Size: %d'  % DataframetoimportSize)
         print ('Check Number: %d'  %  regcount)
         check = True
-        coleccionPML.to_csv('C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/PythonTool/PastCSVBackup/PML/PML-' + mydate + '.csv', index = False)
+        print (coleccionPML)
+        #coleccionPML.to_csv('C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/PythonTool/PastCSVBackup/PML/PML-' + mydate + '.csv', index = False)
     if (DataframetoimportSize != regcount):
         print ('size check... ERROR')
         print ('Restarting script...')
@@ -147,8 +127,9 @@ def mainprogram():
     getPMLpaths(MDA_path, MTR_path)
     uploadtoDB(pathlist_MDA, pathlist_MTR)
 
-    if (check == True):
+    if (check == True):        
         print ('Excecution Complete.')
+
     if (check == False):
         pathlist_MDA = []
         pathlist_MTR = []

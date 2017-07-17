@@ -1,0 +1,4 @@
+Fecha,Hora,Zona de Carga,Precio Zonal  ($/MWh),Componente energia  ($/MWh),Componente perdidas  ($/MWh),Componente Congestion  ($/MWh)
+2017-03-01,1,ACAPULCO,953.04,869.89,83.15,0
+2017-03-01,2,ACAPULCO,880.79,806.39,74.4,0
+2017-03-01,3,ACAPULCO,828.79,765.41,63.39,0

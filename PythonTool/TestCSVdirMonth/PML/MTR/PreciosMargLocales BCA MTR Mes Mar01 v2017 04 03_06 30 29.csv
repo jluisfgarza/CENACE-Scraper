@@ -1,0 +1,4 @@
+Fecha,Hora,Clave del nodo,Precio marginal local ($/MWh),Componente de energia ($/MWh),Componente de perdidas ($/MWh),Componente de congestion ($/MWh)
+2017-03-01,1,07ACU-115,381.98,380.36,1.62,0
+2017-03-01,2,07ACU-115,376.01,374.27,1.74,0
+2017-03-01,3,07ACU-115,376.13,374.4,1.73,0
