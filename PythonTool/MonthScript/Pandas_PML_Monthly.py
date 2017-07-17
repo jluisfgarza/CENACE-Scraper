@@ -12,8 +12,8 @@ import sqlalchemy as sa
 # Global Variables
 pathlist_MDA = []
 pathlist_MTR = []
-MTR_path = "C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/PythonTool/TestCSVdirMonth/PML/MTR/"
-MDA_path = "C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/PythonTool/TestCSVdirMonth/PML/MDA/"
+MTR_path = "C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/PythonTool/PastCSVBackup/PML/MTR/"
+MDA_path = "C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/PythonTool/PastCSVBackup/PML/MDA/"
 coleccionPML = pd.DataFrame()
 regcount = 0
 check = False
