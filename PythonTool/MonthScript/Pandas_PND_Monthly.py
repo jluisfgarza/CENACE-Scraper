@@ -7,6 +7,7 @@
 import pandas as pd
 import os
 import time
+import sqlalchemy as sa
 
 # Global Variables
 pathlist_MDA = []
@@ -126,6 +127,22 @@ def mainprogram():
     uploadtoDB(pathlist_MDA, pathlist_MTR)
 
     if (check == True):
+        print ('Importing to Local SQL DB.')
+        engine = sa.create_engine('mssql+pyodbc://E-JLFLORESG/PreciosEnergia?driver=SQL+Server+Native+Client+11.0')
+        with engine.connect() as conn, conn.begin():
+            coleccionPND.to_sql('PND',
+                                engine,
+                                if_exists='append',
+                                index = False,
+                                dtype={'Fecha': sa.DateTime(),
+                                       'Hora': sa.types.SmallInteger(),
+                                       'Zona de Carga': sa.types.NVARCHAR(length=20),
+                                       'Precio Zonal': sa.types.DECIMAL(precision=2, asdecimal=True),
+                                       'Energia': sa.types.DECIMAL(precision=2, asdecimal=True),
+                                       'Perdidas': sa.types.DECIMAL(precision=2, asdecimal=True),
+                                       'Congestion': sa.types.NVARCHAR(length=10),
+                                       'Tipo': sa.types.NVARCHAR(length=3),
+                                       'Sistema': sa.types.NVARCHAR(length=3)})
         print ('Excecution Complete.')
         
     if (check == False):

@@ -13,7 +13,7 @@ CREATE TABLE PML (
   [Energia] decimal(10,2) NOT NULL,
   [Perdidas] decimal(10,2) NOT NULL,
   [Congestion] varchar(10) NOT NULL,
-  [timestamp] smalldatetime,
+  [Fecha] smalldatetime,
   [Tipo] varchar(3) NOT NULL,
   [Sistema] varchar(3) NOT NULL
 );
@@ -25,7 +25,7 @@ CREATE TABLE PND (
   [Energia] decimal(10,2) NOT NULL,
   [Perdidas] decimal(10,2) NOT NULL,
   [Congestion] decimal(10,2) NOT NULL,
-  [timestamp] smalldatetime,
+  [Fecha] smalldatetime,
   [Tipo] varchar(3) NOT NULL,
   [Sistema] varchar(3) NOT NULL
 );

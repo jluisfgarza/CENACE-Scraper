@@ -7,6 +7,7 @@
 import pandas as pd
 import os
 import time
+import sqlalchemy as sa
 
 # Global Variables
 pathlist_MDA = []
@@ -65,7 +66,7 @@ def uploadtoDB(pathlist1, pathlist2):
 
         PML = pd.read_csv(path)
         # Init Columns
-        PML.columns = ["Fecha","Hora","Zona de Carga","Precio Zonal","Energia","Perdidas","Congestion"]
+        PML.columns = ["Fecha","Hora","Nodo","Precio","Energia","Perdidas","Congestion"]
         PML["tipo"] = "MDA"
         PML["sistema"] = sistema
         coleccionPML = coleccionPML.append(PML, ignore_index=True)
@@ -86,7 +87,7 @@ def uploadtoDB(pathlist1, pathlist2):
 
         PML = pd.read_csv(path)
         # Init Columns
-        PML.columns = ["Fecha","Hora","Zona de Carga","Precio Zonal","Energia","Perdidas","Congestion"]
+        PML.columns = ["Fecha","Hora","Nodo","Precio","Energia","Perdidas","Congestion"]
         PML["tipo"] = "MTR"
         PML["sistema"] = sistema
         coleccionPML = coleccionPML.append(PML, ignore_index=True)
@@ -127,7 +128,23 @@ def mainprogram():
     getPMLpaths(MDA_path, MTR_path)
     uploadtoDB(pathlist_MDA, pathlist_MTR)
 
-    if (check == True):        
+    if (check == True):
+        print ('Importing to Local SQL DB.')
+        engine = sa.create_engine('mssql+pyodbc://E-JLFLORESG/PreciosEnergia?driver=SQL+Server+Native+Client+11.0')
+        with engine.connect() as conn, conn.begin():
+            coleccionPML.to_sql('PML',
+                                engine,
+                                if_exists='append',
+                                index = False,
+                                dtype={'Fecha': sa.DateTime(),
+                                       'Hora': sa.types.SmallInteger(),
+                                       'Nodo': sa.types.NVARCHAR(length=20),
+                                       'Precio': sa.types.DECIMAL(precision=2, asdecimal=True),
+                                       'Energia': sa.types.DECIMAL(precision=2, asdecimal=True),
+                                       'Perdidas': sa.types.DECIMAL(precision=2, asdecimal=True),
+                                       'Congestion': sa.types.NVARCHAR(length=10),
+                                       'Tipo': sa.types.NVARCHAR(length=3),
+                                       'Sistema': sa.types.NVARCHAR(length=3)})
         print ('Excecution Complete.')
 
     if (check == False):
