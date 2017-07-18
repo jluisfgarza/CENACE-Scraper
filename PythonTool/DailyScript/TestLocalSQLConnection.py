@@ -12,26 +12,21 @@ import sqlalchemy as sa
 # Local DB 
 engine = sa.create_engine('mssql+pyodbc://E-JLFLORESG/PreciosEnergia?driver=SQL+Server+Native+Client+11.0')
 
-with engine.connect() as conn, conn.begin():
-    # pending change DB name 
-    # SQl query read top 10 rows on PML db
-    PML = pd.read_sql('SELECT TOP (10) [Hora], [Nodo], [Precio], [Energia], [Perdidas], [Congestion], [timestamp] FROM [PreciosEnergia].[dbo].[PML]', conn)
-    print ('PML')
-    print (PML)
+with engine.connect() as conn, conn.begin():    
+        
+    # SQl query count rows on PML
+    PML = pd.read_sql('SELECT COUNT(*) as [NumRegPML] FROM [PreciosEnergia].[dbo].[PML]', conn)
     
-    # SQl query read top 10 rows on PML db
-    PND = pd.read_sql('SELECT TOP (10) [Hora], [Zona de Carga], [Precio Zonal], [Energia], [Perdidas], [Congestion], [timestamp] FROM [PreciosEnergia].[dbo].[PND]', conn)
-    print ('PND')
-    print (PND)
-    
-    
-    
-    
-    # After every data import to the DB ejectute the following query to format timestamp 
-    """
-        ALTER TABLE PML
-        ALTER COLUMN timestamp smalldatetime;
-    
-        ALTER TABLE PND
-        ALTER COLUMN timestamp smalldatetime;
-    """
+    # SQl query count rows on PND
+    PND = pd.read_sql('SELECT COUNT(*) as [NumRegPND] FROM [PreciosEnergia].[dbo].[PND]', conn)
+        
+    PML.reset_index(drop=True)
+    PND.reset_index(drop=True)
+    TPML = PML.iat[0,0]
+    TPND = PND.iat[0,0]
+    print ('NumRegPML: ')
+    print (TPML)
+    print ('NumRegPND: ')
+    print (TPND)
+
+
