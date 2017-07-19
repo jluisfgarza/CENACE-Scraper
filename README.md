@@ -35,6 +35,9 @@ To use the tool, it is necessary to download and install:
 - [x] Use Pandas lib to parse CSV files on specified directory
 - [x] Create a daily condensed CSV files for PML and PND
 - [x] Validate data integrity as dataframe
+- [x] Local DB Connection
+- [x] Local DB INSERT and SELECT
+
 
 ## Pending
 - [ ] Finish monthly scripts
@@ -42,6 +45,18 @@ To use the tool, it is necessary to download and install:
 - [ ] Azure data upload
 - [ ] Initialize DB with past information using monthly scripts
 - [ ] Run every 24 hrs
+- [ ] Performance
+
+## Performance
+current code performance with large amounts of data is slow.
+About 165,000 inserts per min on a system with:
+  - AMD A8-5550M APU 2.10 Ghz
+  - 8 GB RAM
+  - 64bit OS
+
+Further testing to be made.
+> According to code logic, performance is due to `to_sql` function on pandas lib.
+
 -------------
 
 ## Download (CSVdir) and Backup Directories tree view (PartCSVBackup)
