@@ -25,6 +25,7 @@ initPML = 0
     # SQL CONNECTION ENGINE
 engine = sa.create_engine('mssql+pyodbc://E-JLFLORESG/PreciosEnergia?driver=SQL+Server+Native+Client+11.0')
 
+################################ try_parsing_date ###############################
 # Helper Function to parse different date formats into MM/DD/YYYY
 def try_parsing_date(text):
     for fmt in ('%Y/%m/%d', '%d/%m/%Y'):
@@ -35,6 +36,7 @@ def try_parsing_date(text):
             pass
     raise ValueError('no valid date format found ' + text)
 
+#################################### dbcount ###################################
 # Function to check amount Reg at DB at PML table
 def dbcount():
     global engine
@@ -46,6 +48,7 @@ def dbcount():
         print ('NumRegPML: %d' % TPML)
     return (TPML)
 
+################################## deletedupPML #################################
 # Function to delete duplicated rows
 def deletedupPML():
    global engine
@@ -56,6 +59,7 @@ def deletedupPML():
        print ('Deleted Duplicate Rows' )
    return
 
+################################## getPMLpaths #################################
 # Function to get file paths on desired directories
 def getPMLpaths(dir1, dir2):
     global pathlist_MDA
@@ -82,6 +86,7 @@ def getPMLpaths(dir1, dir2):
     '''
     return
 
+################################## uploadtoDB ##################################
 # Function that process and inserts data to SQL DB
 def uploadtoDB(pathlist1, pathlist2):
     global coleccionPML
@@ -188,21 +193,23 @@ def uploadtoDB(pathlist1, pathlist2):
         check = False
     return
 
-################################# Main Program ################################
+################################# Main Program #################################
 def mainprogram():
     global check
     global pathlist_MDA
     global pathlist_MTR
     global coleccionPML
     global regcount
-
+    # Get paths
     getPMLpaths(MDA_path, MTR_path)
+    # Send path lists
     uploadtoDB(pathlist_MDA, pathlist_MTR)
-
+    # If integrity check = PASSED
     if (check == True):
         print ('Excecution Complete.')
-
+    # If integrity check != PASSED, repeat process
     if (check == False):
+        # Clean variables, DataFrame and delete repeated rows on DB
         pathlist_MDA = []
         pathlist_MTR = []
         coleccionPML.empty
@@ -211,9 +218,10 @@ def mainprogram():
         check = False
         deletedupPML()
         mainprogram()
-
     return
 
+#################################### Start #####################################
+# Compare initial DB size and after execution size
 initregcount = dbcount()
 print ('DB Initial Size: %d' % initregcount)
 mainprogram()

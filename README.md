@@ -6,9 +6,7 @@ Site: [CENACE](http://www.cenace.gob.mx/SIM/VISTA/REPORTES/PreEnergiaSisMEM.aspx
 
 
 ### Description
-
 1. Files are downloaded by the `webdriver` script and read on the `CSVdir` directory by the daily scripts.
-
 2. Daily Scripts connect to the azure server and upload information for data analysis.
 
 
@@ -17,7 +15,6 @@ Site: [CENACE](http://www.cenace.gob.mx/SIM/VISTA/REPORTES/PreEnergiaSisMEM.aspx
 
 `Pandas_PML_Monthly.py` and `Pandas_PND_Monthly.py` : Initialize the sql database with past information from CENACE.
 
--------------
 
 ## Installation
 To use the tool, it is necessary to download and install:
@@ -28,7 +25,7 @@ To use the tool, it is necessary to download and install:
 > **Note:**
 > - To install Geckodriver in windows it is necessary to add geckodriver.exe to the systems path  
 
--------------
+
 ## Current Working Functions
 - [x] Enter [CENACE](http://www.cenace.gob.mx/SIM/VISTA/REPORTES/PreEnergiaSisMEM.aspx) and download files to the specified directory
 - [x] Validate downloads
@@ -37,7 +34,6 @@ To use the tool, it is necessary to download and install:
 - [x] Validate data integrity as dataframe
 - [x] Local DB Connection
 - [x] Local DB INSERT and SELECT
-
 
 ## Pending
 - [ ] Finish monthly scripts
@@ -57,22 +53,20 @@ About 165,000 inserts per min on a system with:
 Further testing to be made.
 > According to code logic, performance is due to `to_sql` function on pandas lib.
 
--------------
 
 ## Download (CSVdir) and Backup Directories tree view (PartCSVBackup)
 ```
-PML
-  MDA
-  MTR
-PND
-  MDA
-  MTR
+  PML
+    MDA
+    MTR
+  PND
+    MDA
+    MTR
 ```
--------------
 
 > Don't forget to change the download paths!!
 
-> Example on file Webdriver_Downloader:
+ Example on file Webdriver_Downloader:
 ``` python
 profile.set_preference("browser.download.dir", "C:\\Users\e-jlfloresg\Desktop\Python-Requests-CENACE\SELENIUM\test downloads\PML\MTR")
 ```
