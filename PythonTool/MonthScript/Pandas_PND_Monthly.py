@@ -21,6 +21,7 @@ MTR_path = "C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/PythonTool/Tes
 coleccionPND = pd.DataFrame()
     # Helper Variables for integrity check
 regcount = 0
+initregcount = 0
 check = False
 initPND = 0
     # SQL CONNECTION ENGINE

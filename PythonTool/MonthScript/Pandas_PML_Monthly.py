@@ -2,7 +2,7 @@
 #    Juan Luis Flores Garza
 # Date: 7/20/2017
 #
-# Downloader for PML - (Precios Nodos Distribuidos)
+# Downloader for PML - (Precios Marginales Locales)
 
 import pandas as pd
 import os
@@ -22,6 +22,7 @@ coleccionPML = pd.DataFrame()
     # Helper Variables for integrity check
 regcount = 0
 initregcount = 0
+check = False
 initPML = 0
     # SQL CONNECTION ENGINE
 engine = sa.create_engine('mssql+pyodbc://E-JLFLORESG/PreciosEnergia?driver=SQL+Server+Native+Client+11.0')

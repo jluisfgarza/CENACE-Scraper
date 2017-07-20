@@ -1,0 +1,11 @@
+Centro Nacional de Control de Energia
+Precios marginales locales del MDA 
+Sistema Interconectado Baja California
+Reporte diario
+Fecha: 10/Febrero/2017
+Archivo descargado desde el Sistema de Informacion del Mercado (Area Publica) creado el 09/Febrero/2017 13:34:09 hrs.
+Nota: Los acentos de este reporte se omiten intencionalmente por sistema
+Hora,Clave del nodo,Precio marginal local ($/MWh),Componente de energia ($/MWh),Componente de perdidas ($/MWh),Componente de congestion ($/MWh)
+1,07ACU-115,452.53,451.01,1.52,0
+2,07ACU-115,766.1,764.08,2.02,0
+3,07ACU-115,713.16,711.2,1.96,0

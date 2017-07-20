@@ -1,0 +1,10 @@
+Precios marginales locales del MTR (Calculo ExPost) 
+Sistema Interconectado Baja California Sur
+Reporte diario
+Fecha: 02/Febrero/2017
+Archivo descargado desde el Sitio Web del Mercado Electrico Mayorista creado el 08/Febrero/2017 15:29:58 hrs.
+Nota: Los acentos de este reporte se omiten intencionalmente por sistema
+Hora,Clave del nodo,Precio marginal local ($/MWh),Componente de energia ($/MWh),Componente de perdidas ($/MWh),Componente de congestion ($/MWh)
+1,07BLE-115,2043.42,2044.28,-.86,0
+2,07BLE-115,1975.14,1975.19,-.05,0
+3,07BLE-115,1907.46,1906.87,.59,0
