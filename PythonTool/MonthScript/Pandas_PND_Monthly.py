@@ -181,13 +181,13 @@ def uploadtoDB(pathlist1, pathlist2):
     dbsize = dbcount()
     # If DB size equals the starting number of reg + the number of inserts
     if (initregcount + regcount == dbsize):
-        print ('size check... PASSED')
+        print ('Size Check... PASSED')
         print ('DB Initial Size: %d' % initregcount)
         print ('After Script Size: %d' % dbsize)
         check = True
     # If DB size is different from the starting number of reg + the number of inserts
     if (initregcount + regcount != dbsize):
-        print ('size check... ERROR')
+        print ('Size Check... ERROR')
         print ('Restarting script...')
         print ('DB Initial Size: %d' % initregcount)
         print ('After Script Size: %d' %  dbsize)
@@ -223,6 +223,7 @@ def mainprogram():
 
 #################################### Start #####################################
 # Compare initial DB size and after execution size
+print("____________________________")
 print("--- Starting Monthly PND ---")
 initregcount = dbcount()
 print ('DB Initial Size: %d' % initregcount)
@@ -231,4 +232,5 @@ mainprogram()
 deletedupPND()
 finalcount = dbcount()
 print ('Final DB Size: %d' % finalcount)
-print("--- Execution time: %s seconds ---" % (time.time() - start_time))
+print("Execution time: %s seconds" % (time.time() - start_time))
+print("____________________________")
