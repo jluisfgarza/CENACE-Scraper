@@ -10,7 +10,3 @@ FROM [PreciosEnergia].[dbo].[PML]
   -- PND
 SELECT COUNT(*) as [Number of Reg PND]
 FROM [PreciosEnergia].[dbo].[PND]
-
-  -- Display full PML and PND info
-EXEC sp_spaceused 'PML'
-EXEC sp_spaceused 'PND'

@@ -12,7 +12,7 @@ CREATE TABLE PML (
   [Precio] decimal(10,2) NOT NULL,
   [Energia] decimal(10,2) NOT NULL,
   [Perdidas] decimal(10,2) NOT NULL,
-  [Congestion] varchar(10) NOT NULL,
+  [Congestion] decimal(10,2) NOT NULL,
   [Fecha] smalldatetime,
   [Tipo] varchar(3) NOT NULL,
   [Sistema] varchar(3) NOT NULL

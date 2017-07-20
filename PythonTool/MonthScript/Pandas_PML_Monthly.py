@@ -1,11 +1,12 @@
 # Author:
 #    Juan Luis Flores Garza
-# Date: 7/19/2017
+# Date: 7/20/2017
 #
 # Downloader for PML - (Precios Nodos Distribuidos)
 
 import pandas as pd
 import os
+import time
 import sqlalchemy as sa
 from datetime import datetime
 
@@ -45,7 +46,7 @@ def dbcount():
         PML = pd.read_sql('SELECT COUNT(*) as [NumRegPML] FROM [PreciosEnergia].[dbo].[PML]', conn)
         PML.reset_index(drop=True)
         TPML = PML.iat[0,0]
-        print ('NumRegPML: %d' % TPML)
+        #print ('NumRegPML: %d' % TPML)
     return (TPML)
 
 ################################## deletedupPML #################################
@@ -55,7 +56,7 @@ def deletedupPML():
    # Using a work arround to print a null while executing a query to delete duplicates in order to be able to execute the CTE query
    with engine.connect() as conn, conn.begin():
        # SQl query count rows on PML
-       deltemp = pd.read_sql('SELECT TOP (0) [Hora] FROM [PreciosEnergia].[dbo].[PML]; WITH CTE AS( SELECT [Nodo], [Hora], [Precio], [Energia], [Perdidas], [Congestion], [Fecha], [Tipo], [Sistema], RN = ROW_NUMBER()OVER(PARTITION BY Nodo, Fecha, Hora, Tipo, Sistema ORDER BY Sistema) FROM dbo.PML) DELETE FROM CTE WHERE RN > 1;', conn)
+       deltemp = pd.read_sql('SELECT TOP (0) [Hora] FROM [PreciosEnergia].[dbo].[PML]; WITH CTE_Dup AS(SELECT [Nodo], [Hora], [Precio], [Energia], [Perdidas], [Congestion], [Fecha], [Tipo], [Sistema], ROW_NUMBER()OVER(PARTITION BY Nodo, Fecha, Hora, Tipo, Sistema ORDER BY Sistema) as RN FROM [PreciosEnergia].[dbo].[PML]) DELETE FROM CTE_Dup WHERE RN <> 1;', conn)
        print ('Deleted Duplicate Rows' )
    return
 
@@ -109,8 +110,8 @@ def uploadtoDB(pathlist1, pathlist2):
         # Init Columns
         PML.columns = ["Fecha","Hora","Nodo","Precio","Energia","Perdidas","Congestion"]
         PML["Fecha"] = pd.to_datetime(PML.Fecha)
-        PML["tipo"]  = "MDA"
-        PML["sistema"] = sistema
+        PML["Tipo"]  = "MDA"
+        PML["Sistema"] = sistema
         # Init DataFrame
         coleccionPML.empty
         coleccionPML = pd.DataFrame()
@@ -118,6 +119,7 @@ def uploadtoDB(pathlist1, pathlist2):
         # Data integrity check for number of rows
         PMLcount = PML.Fecha.count()
         regcount = regcount + PMLcount
+        print ('Row Count... %d'  % regcount)
         # Open connection to start inserts.
         with engine.connect() as conn, conn.begin():
             coleccionPML.to_sql('PML',
@@ -130,10 +132,9 @@ def uploadtoDB(pathlist1, pathlist2):
                                        'Precio': sa.types.DECIMAL(precision=2, asdecimal=True),
                                        'Energia': sa.types.DECIMAL(precision=2, asdecimal=True),
                                        'Perdidas': sa.types.DECIMAL(precision=2, asdecimal=True),
-                                       'Congestion': sa.types.NVARCHAR(length=10),
+                                       'Congestion': sa.types.DECIMAL(precision=2, asdecimal=True),
                                        'Tipo': sa.types.NVARCHAR(length=3),
-                                       'Sistema': sa.types.NVARCHAR(length=3)},
-                                chunksize = 100000)
+                                       'Sistema': sa.types.NVARCHAR(length=3)})
     #MTR
     for element in pathlist2:
         path = element
@@ -158,6 +159,7 @@ def uploadtoDB(pathlist1, pathlist2):
         # Data integrity check for number of rows
         PMLcount = PML.Fecha.count()
         regcount = regcount + PMLcount
+        print ('Row Count... %d'  % regcount)
         # Open connection to start inserts.
         with engine.connect() as conn, conn.begin():
             coleccionPML.to_sql('PML',
@@ -170,10 +172,9 @@ def uploadtoDB(pathlist1, pathlist2):
                                        'Precio': sa.types.DECIMAL(precision=2, asdecimal=True),
                                        'Energia': sa.types.DECIMAL(precision=2, asdecimal=True),
                                        'Perdidas': sa.types.DECIMAL(precision=2, asdecimal=True),
-                                       'Congestion': sa.types.NVARCHAR(length=10),
+                                       'Congestion': sa.types.DECIMAL(precision=2, asdecimal=True),
                                        'Tipo': sa.types.NVARCHAR(length=3),
-                                       'Sistema': sa.types.NVARCHAR(length=3)},
-                                chunksize = 100000)
+                                       'Sistema': sa.types.NVARCHAR(length=3)})
     # Ignore DataFrame index
     coleccionPML.reset_index(drop=True)
     # Get amount of reg on DB
@@ -181,15 +182,15 @@ def uploadtoDB(pathlist1, pathlist2):
     # If DB size equals the starting number of reg + the number of inserts
     if (initregcount + regcount == dbsize):
         print ('size check... PASSED')
-        print ('Original Size: %d'  % initregcount)
-        print ('After Script Size: %d'  %  dbsize)
+        print ('DB Initial Size: %d' % initregcount)
+        print ('After Script Size: %d' % dbsize)
         check = True
     # If DB size is different from the starting number of reg + the number of inserts
     if (initregcount + regcount != dbsize):
         print ('size check... ERROR')
         print ('Restarting script...')
-        print ('Original Size: %d'  % initregcount)
-        print ('After Script Size: %d'  %  dbsize)
+        print ('DB Initial Size: %d' % initregcount)
+        print ('After Script Size: %d' %  dbsize)
         check = False
     return
 
@@ -224,7 +225,9 @@ def mainprogram():
 # Compare initial DB size and after execution size
 initregcount = dbcount()
 print ('DB Initial Size: %d' % initregcount)
+start_time = time.time()
 mainprogram()
 deletedupPML()
 finalcount = dbcount()
 print ('Final DB Size: %d' % finalcount)
+print("--- Execution time: %s seconds ---" % (time.time() - start_time))
