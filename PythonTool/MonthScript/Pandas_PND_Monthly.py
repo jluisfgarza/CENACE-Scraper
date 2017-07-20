@@ -56,7 +56,7 @@ def deletedupPND():
    # Using a work arround to print a null while executing a query to delete duplicates in order to be able to execute the CTE query
    with engine.connect() as conn, conn.begin():
        # SQl query count rows on PND
-       deltemp = pd.read_sql('SELECT TOP (0) [Hora] FROM [PreciosEnergia].[dbo].[PND]; WITH CTE_Dup AS( SELECT [Zona de Carga], [Hora], [Precio Zonal], [Energia], [Perdidas], [Congestion], [Fecha], [Tipo], [Sistema], ROW_NUMBER()OVER(PARTITION BY [Zona de Carga], Fecha, Hora, Tipo, Sistema ORDER BY Sistema) as RN FROM [PreciosEnergia].[dbo].[PND]) DELETE FROM CTE_Dup WHERE RN <> 1;
+       deltemp = pd.read_sql('SELECT TOP (0) [Hora] FROM [PreciosEnergia].[dbo].[PND]; WITH CTE_Dup AS( SELECT [Zona de Carga], [Hora], [Precio Zonal], [Energia], [Perdidas], [Congestion], [Fecha], [Tipo], [Sistema], ROW_NUMBER()OVER(PARTITION BY [Zona de Carga], Fecha, Hora, Tipo, Sistema ORDER BY Sistema) as RN FROM [PreciosEnergia].[dbo].[PND]) DELETE FROM CTE_Dup WHERE RN <> 1;', conn)
        print ('Deleted Duplicate Rows' )
    return
 
@@ -223,11 +223,12 @@ def mainprogram():
 
 #################################### Start #####################################
 # Compare initial DB size and after execution size
+print("--- Starting Monthly PND ---")
 initregcount = dbcount()
 print ('DB Initial Size: %d' % initregcount)
 start_time = time.time()
 mainprogram()
-#deletedupPND()
+deletedupPND()
 finalcount = dbcount()
 print ('Final DB Size: %d' % finalcount)
 print("--- Execution time: %s seconds ---" % (time.time() - start_time))

@@ -15,8 +15,8 @@ from datetime import datetime
 pathlist_MDA = []
 pathlist_MTR = []
     # Path of directories with csv files
-MTR_path = "C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/PythonTool/PastCSVBackup/PML/MTR/"
-MDA_path = "C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/PythonTool/PastCSVBackup/PML/MDA/"
+MTR_path = "C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/PythonTool/TestCSVdirMonth/PML/MTR/"
+MDA_path = "C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/PythonTool/TestCSVdirMonth/PML/MDA/"
     # Pandas DataFrame
 coleccionPML = pd.DataFrame()
     # Helper Variables for integrity check
@@ -223,6 +223,7 @@ def mainprogram():
 
 #################################### Start #####################################
 # Compare initial DB size and after execution size
+print("--- Starting Monthly PML ---")
 initregcount = dbcount()
 print ('DB Initial Size: %d' % initregcount)
 start_time = time.time()
