@@ -1,0 +1,10 @@
+Precios de energia en nodos distribuidos del MTR (Calculo ExPost) 
+Sistema Interconectado Baja California
+Reporte diario
+Fecha: 28/Enero/2017
+Archivo descargado desde el Sitio Web del Mercado Electrico Mayorista creado el 03/Febrero/2017 15:23:42 hrs.
+Nota: Los acentos de este reporte se omiten intencionalmente por sistema
+Hora,Zona de Carga,Precio Zonal  ($/MWh),Componente energia  ($/MWh),Componente perdidas  ($/MWh),Componente Congestion  ($/MWh),
+1,ENSENADA,654.92,634.84,20.08,0
+2,ENSENADA,648.22,627.84,20.38,0
+3,ENSENADA,590.88,573.78,17.1,0

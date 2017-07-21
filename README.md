@@ -37,6 +37,7 @@ To use the tool, it is necessary to download and install:
 - [x] PML monthly script
 - [x] PND monthly script
 - [x] PML daily script
+- [x] PND daily script
 
 ## Pending
 - [ ] Azure DB connection

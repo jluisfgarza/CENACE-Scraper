@@ -1,0 +1,10 @@
+Precios de energia en nodos distribuidos del MDA
+Sistema Interconectado Baja California Sur
+Reporte diario
+Fecha: 05/Febrero/2017
+Archivo descargado desde el Sitio Web del Mercado Electrico Mayorista creado el 04/Febrero/2017 14:45:57 hrs.
+Nota: Los acentos de este reporte se omiten intencionalmente por sistema
+Hora,Zona de Carga,Precio Zonal  ($/MWh),Componente energia  ($/MWh),Componente perdidas  ($/MWh),Componente Congestion  ($/MWh),
+1,CONSTITUCION,1550.18,1550.92,-.74,0
+2,CONSTITUCION,1484.31,1485.53,-1.22,0
+3,CONSTITUCION,1459.68,1459.54,.14,0

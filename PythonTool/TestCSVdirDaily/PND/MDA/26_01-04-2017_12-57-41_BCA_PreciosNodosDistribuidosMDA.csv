@@ -1,0 +1,11 @@
+Centro Nacional de Control de Energia
+Precios de Energia en Nodos Distribuidos del MDA
+Sistema Interconectado Baja California
+Reporte diario
+Fecha: 02/Abril/2017
+Archivo descargado desde el Sistema de Informacion del Mercado (Area Publica) creado el 01/Abril/2017 12:57:41 hrs.
+Nota: Los acentos de este reporte se omiten intencionalmente por sistema
+Hora,Zona de Carga,Precio Zonal  ($/MWh),Componente energia  ($/MWh),Componente perdidas  ($/MWh),Componente Congestion  ($/MWh),
+1,ENSENADA,477.35,463.41,13.94,0
+2,ENSENADA,468.95,455.1,13.86,0
+3,ENSENADA,460.95,446.97,13.98,0
