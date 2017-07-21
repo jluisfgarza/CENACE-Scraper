@@ -6,14 +6,13 @@ Site: [CENACE](http://www.cenace.gob.mx/SIM/VISTA/REPORTES/PreEnergiaSisMEM.aspx
 
 
 ### Description
-1. Files are downloaded by the `webdriver` script and read on the `CSVdir` directory by the daily scripts.
-2. Daily Scripts connect to the azure server and upload information for data analysis.
-
+1. Files are downloaded by the `PythonWebScrapper.py` scrpt.
+2. Files are read by the `DailyScirpts` on the `CSVdir`, then they are INSERTED on the SQL DB.
 
 ### Scripts
 `Pandas_PML_Daily.py` and `Pandas_PND_Daily.py` : Parse information downloaded from CENACE to the SQL Database every day.
 
-`Pandas_PML_Monthly.py` and `Pandas_PND_Monthly.py` : Initialize the sql database with past information from CENACE.
+`Pandas_PML_Monthly.py` and `Pandas_PND_Monthly.py` : INSERT to the SQL database historical data from CENACE.
 
 
 ## Installation
@@ -24,7 +23,6 @@ To use the tool, it is necessary to download and install:
 
 > **Note:**
 > - To install Geckodriver in windows it is necessary to add geckodriver.exe to the systems path  
-
 
 ## Current Working Functions
 - [x] Enter [CENACE](http://www.cenace.gob.mx/SIM/VISTA/REPORTES/PreEnergiaSisMEM.aspx) and download files to the specified directory
@@ -54,8 +52,7 @@ About 165,000 inserts per min on a system with:
   - 64bit OS
 
 Further testing to be made.
-> According to code logic, performance is due to `to_sql` function on pandas lib.
-
+> According to code logic, performance bottle neck is due to `to_sql` function on pandas lib.
 
 ## Download (CSVdir) and Backup Directories tree view (PartCSVBackup)
 ```

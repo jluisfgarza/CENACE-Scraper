@@ -15,8 +15,8 @@ from datetime import datetime
 pathlist_MDA = []
 pathlist_MTR = []
     # Path of directories with csv files
-MTR_path = "C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/PythonTool/TestCSVdirMonth/PML/MTR/"
-MDA_path = "C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/PythonTool/TestCSVdirMonth/PML/MDA/"
+MTR_path = "C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/PythonTool/PastCSVBackup/PML/MTR/"
+MDA_path = "C:/Users/e-jlfloresg/Desktop/Python-Downloader-CENACE/PythonTool/PastCSVBackup/PML/MDA/"
     # Pandas DataFrame
 coleccionPML = pd.DataFrame()
     # Helper Variables for integrity check

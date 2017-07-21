@@ -1,3 +1,5 @@
+Xpaths of the checkboxes on the site
+
                                       Precios Marginales Locales
 MDA
 SISTEMA INTERCONECTADO NACIONAL               (Precios de la energía/Precios Marginales Locales/MDA/Diarios)

@@ -1,5 +1,9 @@
-# Author: Juan Luis Flores Garza
-# Date: 5/17/2017
+# Author:
+#   Juan Luis Flores Garza
+# Date: 7/21/2017
+#
+# CENACE WebScrapper
+
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import TimeoutException
@@ -10,14 +14,19 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 import time
 
-# downloadcount must be 12 at the end of the execution
+# Global Variables
+    # Helper download counter (must reach 12 downloads at the end)
 downloadcount = 0
+    # Define firefox as the wedriver
 browser = webdriver.Firefox()
-# Load site
+
+################################### loadsite ###################################
+# Function that loads the site
 def loadsite() :
     global browser
     # Check if the table is correctly loaded
     try:
+        # Check if contents are propertly loaded if not, website if refreshed
         element_present = EC.presence_of_element_located((By.ID, 'ctl00_ContentPlaceHolder1_treePrincipal'))
         WebDriverWait(browser, 15).until(element_present)
         print ("Page is ready!")
@@ -36,7 +45,8 @@ def loadsite() :
     loadsite()
     return
 
-# Index of each checkbox
+################################## checkboxes ##################################
+# Index of each checkbox (select the daily checkboxes)
 def checkboxes():
     time.sleep(5);
     #PML/MDA/D
@@ -49,6 +59,7 @@ def checkboxes():
     searchcheckbox('5')
     return
 
+################################ searchcheckbox ################################
 # Click on checkboxes
 def searchcheckbox(mychar):
     global browser
@@ -59,12 +70,13 @@ def searchcheckbox(mychar):
     # Element not found
     except NoSuchElementException as e:
         print("Error finding the element")
-        #Reload website and redownload files for better reliability
+        #Reload website and redownload files
         browser.refresh()
         loadsite()
         return
 
-#Download files according to Xpath in table
+################################ downloadfiles #################################
+# Download files according to Xpath in table
 def downloadfiles(Xpath):
     global browser
     time.sleep(10);
@@ -79,6 +91,8 @@ def downloadfiles(Xpath):
         print("Error enxontró csv")
     return
 
+#################################### start #####################################
+# Start execution
 def start():
     global browser
     ### Precios Marginales Locales
@@ -253,13 +267,15 @@ def start():
 
     return
 
-### Main Program ###
-
+################################# Main Program #################################
+# Main program
 start()
 print(downloadcount)
+# check 12 valid downloads
 if (downloadcount < 12):
     print("Ejecutión Incorrecta... reiniciando programa")
     downloadcount = 0
+    # if execution error, restart the program
     start()
 else:
     print("Ejecutión Correcta")
