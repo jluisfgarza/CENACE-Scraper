@@ -1,6 +1,4 @@
-# Authors:
-#    Fransisco Con Garza
-#    Ricardo Alatorre Cantú
+# Author:
 #    Juan Luis Flores Garza
 # Date: 6/21/2017
 #

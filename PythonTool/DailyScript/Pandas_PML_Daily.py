@@ -7,10 +7,9 @@
 import pandas as pd
 import os
 import time
-import locale
 import csv
 import sqlalchemy as sa
-from datetime import datetime
+import dateparser
 
 # Global Variables
     # Arrays with list of paths for MDA and MTR
@@ -28,17 +27,6 @@ check = False
 initPML = 0
     # SQL CONNECTION ENGINE
 engine = sa.create_engine('mssql+pyodbc://E-JLFLORESG/PreciosEnergia?driver=SQL+Server+Native+Client+11.0')
-
-################################ try_parsing_date ###############################
-# Helper Function to parse different date formats into MM/DD/YYYY
-def try_parsing_date(text):
-    for fmt in ('%Y/%m/%d', '%d/%m/%Y'):
-        try:
-            mydate = datetime.strptime(text, fmt)
-            return datetime.strftime(mydate, "%m/%d/%Y")
-        except ValueError:
-            pass
-    raise ValueError('no valid date format found ' + text)
 
 #################################### dbcount ###################################
 # Function to check amount Reg at DB at PML table
@@ -82,12 +70,12 @@ def getPMLpaths(dir1, dir2):
             if filepath.endswith(".csv"):
                 path = filepath
                 pathlist_MTR.append(path)
-                     
+    '''                
     print (pathlist_MDA)
     print('\n')
     print (pathlist_MTR)
     print('\n')
-    
+    '''
     return
 
 ################################## uploadtoDB ##################################
@@ -112,23 +100,23 @@ def uploadtoDB(pathlist1, pathlist2):
         with open(path, newline='') as f:
           reader = csv.reader(f)
           row1 = str(next(reader))
-          #print (row1)
+          #print (row1)          
         PML = pd.DataFrame()
             # Check header length according to first row content
         if row1.find('Centro Nacional de Control de Energia') >= 0:
             PML = pd.read_csv(path, skiprows=[0,1,2,3,4,5,6])
             # Get the date from CSV header
             fecha = pd.read_csv(path, nrows=1, skiprows=[0,1,2])            
-        if row1.find('Precios de energia en nodos distribuidos del MDA') >= 0:
+        if row1.find('Precios marginales locales del MDA') >= 0:
             PML = pd.read_csv(path, skiprows=[0,1,2,3,4,5])
             # Get the date from CSV header
-            fecha = pd.read_csv(path, nrows=1, skiprows=[0,1])
+            fecha = pd.read_csv(path, nrows=1, skiprows=[0,1])            
         # Init Columns
-        PML.columns = ["Hora","Nodo","Precio","Energía","Pérdidas","Congestión"]            
-        locale.setlocale(locale.LC_TIME, 'es')
+        PML.columns = ["Hora","Nodo","Precio","Energia","Perdidas","Congestion"]            
         alfa = fecha["Reporte diario"].to_string(index=False)
-        PML["Fecha"] = pd.to_datetime(alfa)
-        print (PML["Fecha"])
+        alfa = alfa[-len(alfa)+alfa.index(" ")+1:]
+        alfa = ((dateparser.parse(alfa, date_formats=['%d/%B/%Y'], languages=['pt', 'es'])))
+        PML["Fecha"] = pd.to_datetime(alfa)     
         PML["Tipo"] = "MDA"
         PML["Sistema"] = sistema
         # Init DataFrame
@@ -136,9 +124,24 @@ def uploadtoDB(pathlist1, pathlist2):
         coleccionPML = pd.DataFrame()  
         coleccionPML = coleccionPML.append(PML, ignore_index=True, verify_integrity=True)
         # Data integrity check for number of rows
-        PMLcount = PML.Fecha.count()
+        PMLcount = PML.Hora.count()
         regcount = regcount + PMLcount
         print ('Row Count... %d'  % regcount)
+        # Open connection to start inserts.
+        with engine.connect() as conn, conn.begin():
+            coleccionPML.to_sql('PML',
+                                engine,
+                                if_exists='append',
+                                index = False,
+                                dtype={'Fecha': sa.DateTime(),
+                                       'Hora': sa.types.SmallInteger(),
+                                       'Nodo': sa.types.NVARCHAR(length=20),
+                                       'Precio': sa.types.DECIMAL(precision=2, asdecimal=True),
+                                       'Energia': sa.types.DECIMAL(precision=2, asdecimal=True),
+                                       'Perdidas': sa.types.DECIMAL(precision=2, asdecimal=True),
+                                       'Congestion': sa.types.DECIMAL(precision=2, asdecimal=True),
+                                       'Tipo': sa.types.NVARCHAR(length=3),
+                                       'Sistema': sa.types.NVARCHAR(length=3)})
 
     #MTR
     for element in pathlist2:
@@ -154,23 +157,23 @@ def uploadtoDB(pathlist1, pathlist2):
         with open(path, newline='') as f:
           reader = csv.reader(f)
           row1 = str(next(reader))
-          #print (row1)      
-        PML = pd.DataFrame()
+          #print (row1)               
+        PML = pd.DataFrame()    
             # Check header length according to first row content
         if row1.find('Centro Nacional de Control de Energia') >= 0:
             PML = pd.read_csv(path, skiprows=[0,1,2,3,4,5,6])
             # Get the date from CSV header
             fecha = pd.read_csv(path, nrows=1, skiprows=[0,1,2])            
-        if row1.find('Precios de energia en nodos distribuidos del MDA') >= 0:
+        if row1.find('Precios marginales locales del MTR') >= 0:
             PML = pd.read_csv(path, skiprows=[0,1,2,3,4,5])
             # Get the date from CSV header
             fecha = pd.read_csv(path, nrows=1, skiprows=[0,1])
         # Init Columns
-        PML.columns = ["Hora","Nodo","Precio","Energía","Pérdidas","Congestión"]            
-        locale.setlocale(locale.LC_TIME, 'es')
+        PML.columns = ["Hora","Nodo","Precio","Energia","Perdidas","Congestion"]                    
         alfa = fecha["Reporte diario"].to_string(index=False)
-        PML["Fecha"] = pd.to_datetime(alfa)    
-        print (PML["Fecha"])
+        alfa = alfa[-len(alfa)+alfa.index(" ")+1:]
+        alfa = ((dateparser.parse(alfa, date_formats=['%d/%B/%Y'], languages=['pt', 'es'])))
+        PML["Fecha"] = pd.to_datetime(alfa)  
         PML["Tipo"] = "MTR"
         PML["Sistema"] = sistema
         # Init DataFrame
@@ -178,9 +181,24 @@ def uploadtoDB(pathlist1, pathlist2):
         coleccionPML = pd.DataFrame()  
         coleccionPML = coleccionPML.append(PML, ignore_index=True, verify_integrity=True)
         # Data integrity check for number of rows
-        PMLcount = PML.Fecha.count()
+        PMLcount = PML.Hora.count()
         regcount = regcount + PMLcount
         print ('Row Count... %d'  % regcount)
+        # Open connection to start inserts.
+        with engine.connect() as conn, conn.begin():
+            coleccionPML.to_sql('PML',
+                                engine,
+                                if_exists='append',
+                                index = False,
+                                dtype={'Fecha': sa.DateTime(),
+                                       'Hora': sa.types.SmallInteger(),
+                                       'Nodo': sa.types.NVARCHAR(length=20),
+                                       'Precio': sa.types.DECIMAL(precision=2, asdecimal=True),
+                                       'Energia': sa.types.DECIMAL(precision=2, asdecimal=True),
+                                       'Perdidas': sa.types.DECIMAL(precision=2, asdecimal=True),
+                                       'Congestion': sa.types.DECIMAL(precision=2, asdecimal=True),
+                                       'Tipo': sa.types.NVARCHAR(length=3),
+                                       'Sistema': sa.types.NVARCHAR(length=3)})
 
     # Ignore DataFrame index
     coleccionPML.reset_index(drop=True)
@@ -190,15 +208,14 @@ def uploadtoDB(pathlist1, pathlist2):
     if (initregcount + regcount == dbsize):
         print ('Size Check... PASSED')
         print ('DB Initial Size: %d' % initregcount)
-        print ('After Script Size: %d' % dbsize)
-        print (coleccionPML)
+        print ('After Script Size: %d' % dbsize)        
         check = True
     # If DB size is different from the starting number of reg + the number of inserts
     if (initregcount + regcount != dbsize):
         print ('Size Check... ERROR')
         print ('Restarting script...')
         print ('DB Initial Size: %d' % initregcount)
-        print ('After Script Size: %d' %  dbsize)
+        print ('After Script Size: %d' %  dbsize)        
         check = False
     return
 
@@ -228,9 +245,6 @@ def mainprogram():
         deletedupPML()
         mainprogram()
     return
-
-
-mainprogram()
 
 #################################### Start #####################################
 # Compare initial DB size and after execution size

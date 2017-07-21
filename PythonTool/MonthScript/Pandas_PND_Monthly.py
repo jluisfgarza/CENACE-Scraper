@@ -27,17 +27,6 @@ initPND = 0
     # SQL CONNECTION ENGINE
 engine = sa.create_engine('mssql+pyodbc://E-JLFLORESG/PreciosEnergia?driver=SQL+Server+Native+Client+11.0')
 
-################################ try_parsing_date ###############################
-# Helper Function to parse different date formats into MM/DD/YYYY
-def try_parsing_date(text):
-    for fmt in ('%Y/%m/%d', '%d/%m/%Y'):
-        try:
-            mydate = datetime.strptime(text, fmt)
-            return datetime.strftime(mydate, "%m/%d/%Y")
-        except ValueError:
-            pass
-    raise ValueError('no valid date format found ' + text)
-
 #################################### dbcount ###################################
 # Function to check amount Reg at DB at PND table
 def dbcount():

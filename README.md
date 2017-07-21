@@ -34,9 +34,11 @@ To use the tool, it is necessary to download and install:
 - [x] Validate data integrity as dataframe
 - [x] Local DB Connection
 - [x] Local DB INSERT and SELECT
+- [x] PML monthly script
+- [x] PND monthly script
+- [x] PML daily script
 
 ## Pending
-- [ ] Finish monthly scripts
 - [ ] Azure DB connection
 - [ ] Azure data upload
 - [ ] Initialize DB with past information using monthly scripts
