@@ -1,3 +1,6 @@
+-- Author: Juan Luis Flores Garza
+-- Date: 7/7/2017
+
 -- Delete Duplicates
 -- PML
 WITH CTE_Dup AS(

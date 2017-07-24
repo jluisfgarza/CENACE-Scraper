@@ -8,7 +8,6 @@ import pandas as pd
 import os
 import time
 import sqlalchemy as sa
-from datetime import datetime
 
 # Global Variables
     # Arrays with list of paths for MDA and MTR
@@ -197,7 +196,7 @@ def mainprogram():
     uploadtoDB(pathlist_MDA, pathlist_MTR)
     # If integrity check = PASSED
     if (check == True):
-        print ('Excecution Complete.')
+        print ('Execution Complete.')
     # If integrity check != PASSED, repeat process
     if (check == False):
         # Clean variables, DataFrame and delete repeated rows on DB
@@ -219,7 +218,7 @@ initregcount = dbcount()
 print ('DB Initial Size: %d' % initregcount)
 start_time = time.time()
 mainprogram()
-deletedupPND()
+#deletedupPND()
 finalcount = dbcount()
 print ('Final DB Size: %d' % finalcount)
 print("Execution time: %s seconds" % (time.time() - start_time))

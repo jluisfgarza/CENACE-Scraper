@@ -232,7 +232,7 @@ def mainprogram():
     uploadtoDB(pathlist_MDA, pathlist_MTR)    
     # If integrity check = PASSED
     if (check == True):
-        print ('Excecution Complete.')
+        print ('Execution Complete.')
     # If integrity check != PASSED, repeat process
     if (check == False):
         # Clean variables, DataFrame and delete repeated rows on DB

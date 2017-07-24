@@ -6,7 +6,7 @@ Site: [CENACE](http://www.cenace.gob.mx/SIM/VISTA/REPORTES/PreEnergiaSisMEM.aspx
 
 
 ### Description
-1. Files are downloaded by the `PythonWebScrapper.py` scrpt.
+1. Files are downloaded by the `PythonWebScrapper.py` script.
 2. Files are read by the `DailyScirpts` on the `CSVdir`, then they are INSERTED on the SQL DB.
 
 ### Scripts
@@ -48,8 +48,15 @@ To use the tool, it is necessary to download and install:
 current code performance with large amounts of data is slow.
 About 165,000 inserts per min on a system with:
   - AMD A8-5550M APU 2.10 Ghz
-  - 8 GB RAM
-  - 64bit OS
+    - CPU load when INSERT historical data ~(40%-55%)
+    >  Working laptop with common programs and bloat ware running (Lotus, IBM, CITRIX, McAfee, Atom Editor, Spiyder, SQL Server Management Studio, etc.)
+
+  - 8 GB RAM when INSERT historical data
+    -   Memory ~(35%-45%)
+    > Running SQL Server Windows NT 64bit, python and Spyder as main processes, the python process tend to consume different amounts of memory due to the file size variability.
+
+  - 64bit Windows 8 OS
+
 
 Further testing to be made.
 > According to code logic, performance bottle neck is due to `to_sql` function on pandas lib.
