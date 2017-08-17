@@ -24,7 +24,7 @@ To use the tool, it is necessary to download and install:
 > **Note:**
 > - To install Geckodriver in windows it is necessary to add geckodriver.exe to the systems path  
 
-## Current Working Functions
+## Currently Working Functions
 - [x] Enter [CENACE](http://www.cenace.gob.mx/SIM/VISTA/REPORTES/PreEnergiaSisMEM.aspx) and download files to the specified directory
 - [x] Validate downloads
 - [x] Use Pandas lib to parse CSV files on specified directory
