@@ -1,6 +1,5 @@
-# Python-Requests-CENACE
-
-Python Downloader: CENACE website downloader for obtaining CSV files (Mexico). These files are processed and uploaded to a SQL server where data could be analyzed.
+# Python Scraping Tool
+CENACE web scraper for obtaining CSV files (Mexico). These files are processed and uploaded to a SQL server where data could be analyzed.
 
 Site: [CENACE](http://www.cenace.gob.mx/SIM/VISTA/REPORTES/PreEnergiaSisMEM.aspx)
 
